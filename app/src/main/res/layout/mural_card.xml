@@ -32,7 +32,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Caracter's name" />
+            tools:text="Personagenaam" />
 
         <TextView
             android:id="@+id/tv_card_mural_artistyear"
@@ -46,7 +46,7 @@
             app:fontFamily="@font/cantarell_regular"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_card_mural_character"
-            tools:text="by Artist, painted in 1991" />
+            tools:text="door Artiest, geschilderd in 1991" />
 
         <TextView
             android:id="@+id/tv_card_mural_address"
@@ -61,6 +61,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_card_mural_artistyear"
-            tools:text="420 Lorem Ipsum Avenue, 1080 Brussels" />
+            tools:text="Lorem Ipsumlaan 420, 1080 Brussel" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

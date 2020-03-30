@@ -1,7 +1,10 @@
 package dae.mob123.fragments.util;
 
 import android.app.Application;
+import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -10,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import dae.mob123.R;
 
-public class MuralAdapter extends RecyclerView.ViewHolder<MuralAdapter.MuralViewHolder> {
+public class MuralAdapter extends RecyclerView.Adapter<MuralAdapter.MuralViewHolder> {
 
     //inner class
     class MuralViewHolder extends RecyclerView.ViewHolder{
@@ -35,5 +38,17 @@ public class MuralAdapter extends RecyclerView.ViewHolder<MuralAdapter.MuralView
 
     private Application mApplication;
 
+    public MuralAdapter(Application mApplication) {
+        this.mApplication = mApplication;
+    }
 
+
+    @NonNull
+    @Override
+    public MuralViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        Context context = parent.getContext();
+        LayoutInflater layoutInflater = LayoutInflater.from(context);
+        View muralCard = layoutInflater.inflate(R.layout.mural_card, parent, false);
+        return new MuralViewHolder(muralCard);
+    }
 }

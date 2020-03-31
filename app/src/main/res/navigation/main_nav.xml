@@ -16,6 +16,9 @@
         <action
             android:id="@+id/home_to_list"
             app:destination="@id/listFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_mapFragment"
+            app:destination="@id/mapFragment" />
     </fragment>
     <fragment
         android:id="@+id/aboutFragment"
@@ -27,4 +30,8 @@
         android:name="dae.mob123.fragments.ListFragment"
         android:label="fragment_list"
         tools:layout="@layout/fragment_list" />
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="dae.mob123.fragments.MapFragment"
+        android:label="MapFragment" />
 </navigation>

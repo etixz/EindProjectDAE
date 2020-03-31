@@ -6,12 +6,12 @@ public class Mural {
     private String artist, imageURL, character, year;
     private LatLng coordinates;
 
-    public Mural(String author, String imageURL, String personnage, String year, LatLng coords) {
+    public Mural(String author, String imageURL, String character, String year, LatLng coordinates) {
         this.artist = author;
         this.imageURL = imageURL;
-        this.character = personnage;
+        this.character = character;
         this.year = year;
-        this.coordinates = coords;
+        this.coordinates = coordinates;
     }
 
     public String getArtist() {

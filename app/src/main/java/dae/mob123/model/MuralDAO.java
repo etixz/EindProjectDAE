@@ -18,7 +18,7 @@ public interface MuralDAO {
     MutableLiveData<List<Mural>> getAllMurals();
 
     @Query("SELECT * FROM Mural ORDER BY year ASC")
-    LiveData<List<Mural>> getAllMuralsByYear();
+    MutableLiveData<List<Mural>> getAllMuralsByYear();
 
     @Delete
     void deleteMural(Mural mural);

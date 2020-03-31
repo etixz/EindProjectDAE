@@ -1,12 +1,23 @@
 package dae.mob123.model;
 
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
 import com.google.android.gms.maps.model.LatLng;
 
+@Entity
 public class Mural {
 
-    private String artworkID, artist, imageURL, character, year;
+    @PrimaryKey
+    private String artworkID;
+    private String artist, imageURL, character, year;
     private LatLng coordinates;
 
+    public Mural() {
+    }
+
+    @Ignore
     public Mural(String artworkID, String artist, String imageURL, String character, String year, LatLng coordinates) {
         this.artworkID = artworkID;
         this.artist = artist;

@@ -12,8 +12,10 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import dae.mob123.R;
+import dae.mob123.model.Mural;
 
 public class MuralAdapter extends RecyclerView.Adapter<MuralAdapter.MuralViewHolder> {
 
@@ -48,7 +50,6 @@ public class MuralAdapter extends RecyclerView.Adapter<MuralAdapter.MuralViewHol
         items = new ArrayList<>();
     }
 
-
     @NonNull
     @Override
     public MuralViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -60,14 +61,19 @@ public class MuralAdapter extends RecyclerView.Adapter<MuralAdapter.MuralViewHol
 
     @Override
     public void onBindViewHolder(@NonNull MuralViewHolder cardHolder, int position) {
-        Mural currentMural = items.get(postion);
+        Mural currentMural = items.get(position);
         cardHolder.characterMuralTV.setText(currentMural.getCharacter().toUpperCase());
         cardHolder.artistYearMuralTV.setText("by " + currentMural.getArtist() + ", " + currentMural.getYear());
-        cardHolder.addressMuralTV.setText(currentMural.getCoordinates());
+        cardHolder.addressMuralTV.setText(currentMural.getCoordinates().toString());
     }
 
     @Override
     public int getItemCount() {
         return items.size();
+    }
+
+    public void addItems(List<Mural> murals) {
+        items.clear();
+        items.addAll(murals);
     }
 }

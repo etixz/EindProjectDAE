@@ -3,7 +3,6 @@ package dae.mob123.model;
 import com.google.android.gms.maps.model.LatLng;
 
 public class Mural {
-
     private String artist, imageURL, character, year;
     private LatLng coordinates;
 

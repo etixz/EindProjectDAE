@@ -1,8 +1,9 @@
 package dae.mob123.model;
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
+import android.app.Application;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -12,7 +13,6 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -20,13 +20,19 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class MuralViewModel extends ViewModel {
+//omdat data lokaal zal worden opgeslaan (Room) -> overerven van AndroidViewModel
+public class MuralViewModel extends AndroidViewModel {
 
+    //na aanmaken database, hier field toevoegen
     private ArrayList<Mural> murals;
+    private Application mApplication;
     public ExecutorService threadExecutor = Executors.newFixedThreadPool(4);
 
-    public MuralViewModel() {
-    this.murals = new ArrayList<>();
+    //in constructor aangeven in welke applicatie
+    public MuralViewModel(@NonNull Application application) {
+        super(application);
+        mApplication = application;
+        murals = new ArrayList<>();
     }
 
     //Opvragen mural list

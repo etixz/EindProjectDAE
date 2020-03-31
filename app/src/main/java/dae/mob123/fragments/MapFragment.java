@@ -1,25 +1,27 @@
 package dae.mob123.fragments;
 
 import android.os.Bundle;
-
-import androidx.fragment.R;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import dae.mob123.R;
 import dae.mob123.model.Mural;
+import dae.mob123.model.MuralViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -43,8 +45,11 @@ public class MapFragment extends Fragment {
             //googleMap.setMapType(googleMap.MAP_TYPE_SATELLITE);
 
             myMap.setOnInfoWindowClickListener(infoWindowClickListener);
+            setMarkerAdapter();
+            drawMarkers();
         }
-    }
+
+}
     private GoogleMap.OnInfoWindowClickListener infoWindowClickListener = new GoogleMap.OnInfoWindowClickListener() {
         @Override
         public void onInfoWindowClick(Marker marker) {
@@ -53,7 +58,6 @@ public class MapFragment extends Fragment {
                 Toast.makeText(getActivity(), mural.getCharacter(), Toast.LENGTH_SHORT).show();
         }
     }
-
 
 
 

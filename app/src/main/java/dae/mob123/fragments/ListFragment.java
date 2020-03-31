@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 
 import dae.mob123.R;
 import dae.mob123.fragments.util.MuralAdapter;
+import dae.mob123.model.Mural;
 import dae.mob123.model.MuralViewModel;
 
 
@@ -27,6 +28,7 @@ public class ListFragment extends Fragment {
     public ListFragment() {
     }
 
+    @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         mContext = (FragmentActivity) context;

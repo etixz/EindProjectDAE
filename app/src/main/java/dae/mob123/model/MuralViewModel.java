@@ -4,6 +4,13 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import android.app.Application;
+import android.util.Log;
+
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -12,6 +19,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -23,20 +31,21 @@ import okhttp3.Response;
 //omdat data lokaal zal worden opgeslaan (Room) -> overerven van AndroidViewModel
 public class MuralViewModel extends AndroidViewModel {
 
+    private MutableLiveData<ArrayList<Mural>> murals;
+    private ArrayList<Mural> artworkList;
     //na aanmaken database, hier field toevoegen
-    private ArrayList<Mural> murals;
     private Application mApplication;
     public ExecutorService threadExecutor = Executors.newFixedThreadPool(4);
 
-    //in constructor aangeven in welke applicatie
     public MuralViewModel(@NonNull Application application) {
+    //in constructor aangeven in welke applicatie
         super(application);
         mApplication = application;
-        murals = new ArrayList<>();
+        this.murals = new MutableLiveData<>();
     }
 
     //Opvragen mural list
-    public ArrayList<Mural> getMurals(){
+    public MutableLiveData<ArrayList<Mural>> getMurals(){
         fetchMurals();
         return murals;
     }
@@ -57,24 +66,36 @@ public class MuralViewModel extends AndroidViewModel {
                 try{
                     Response response = client.newCall(request).execute();
                     String json = response.body().string();
-                    JSONArray jsonArray= new JSONArray(json);
 
-                    int arraySize = jsonArray.length();
+                    JSONObject jsonObject = new JSONObject(json);
+                    JSONArray jsonRecordsArray = jsonObject.getJSONArray("records");
+
+                    int arraySize = jsonRecordsArray.length();
                     int i = 0;
 
+                    artworkList = new ArrayList<>();
+
                     while(i < arraySize){
-                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        String jsonID = jsonRecordsArray.getJSONObject(i).getString("recordid");
+                        JSONObject jsonArtwork = jsonRecordsArray.getJSONObject(i).getJSONObject("fields");
 
                         Mural currentMural = new Mural(
-                                jsonObject.getString("auteur_s"),
-                                jsonObject.getString("filename"),
-                                jsonObject.getString("personnage_s"),
-                                jsonObject.getString("annee"), new LatLng(jsonObject.getJSONArray("coordonnees_geographiques").getDouble(0),
-                                                                                 jsonObject.getJSONArray("coordonnees_geographiques").getDouble(1))
+                                jsonID,
+                                jsonArtwork.getString("auteur_s"),
+                                jsonArtwork.getString("filename"),
+                                jsonArtwork.getString("personnage_s"),
+                                jsonArtwork.getString("annee"), new LatLng(jsonArtwork.getJSONArray("coordonnees_geographiques").getDouble(0),
+                                                                                 jsonArtwork.getJSONArray("coordonnees_geographiques").getDouble(1))
                         );
-                        murals.add(currentMural);
+                        artworkList.add(currentMural);
                         i++;
                     }
+
+                    for(Mural mural : artworkList){
+                        Log.d("Data from API:", "" + mural);
+                    }
+
+                    murals.postValue(artworkList);
 
                 } catch (IOException e){
                     e.printStackTrace();

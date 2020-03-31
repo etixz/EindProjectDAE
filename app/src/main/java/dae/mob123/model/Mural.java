@@ -3,15 +3,25 @@ package dae.mob123.model;
 import com.google.android.gms.maps.model.LatLng;
 
 public class Mural {
-    private String artist, imageURL, character, year;
+
+    private String artworkID, artist, imageURL, character, year;
     private LatLng coordinates;
 
-    public Mural(String author, String imageURL, String character, String year, LatLng coordinates) {
-        this.artist = author;
+    public Mural(String artworkID, String artist, String imageURL, String character, String year, LatLng coordinates) {
+        this.artworkID = artworkID;
+        this.artist = artist;
         this.imageURL = imageURL;
         this.character = character;
         this.year = year;
         this.coordinates = coordinates;
+    }
+
+    public String getArtworkID() {
+        return artworkID;
+    }
+
+    public void setArtworkID(String artworkID) {
+        this.artworkID = artworkID;
     }
 
     public String getArtist() {

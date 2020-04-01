@@ -1,6 +1,5 @@
 package dae.mob123.fragments;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +17,6 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -27,8 +25,6 @@ import java.util.List;
 
 import dae.mob123.R;
 import dae.mob123.model.Mural;
-import dae.mob123.model.MuralDAO;
-import dae.mob123.model.MuralDatabase;
 import dae.mob123.model.MuralViewModel;
 
 /**
@@ -38,7 +34,6 @@ public class MapFragment extends Fragment {
 
     private MapView mapView;
     private GoogleMap myMap;
-    //TODO context instellen, onAttach
     private AppCompatActivity mycontext;
 
     private OnMapReadyCallback onMapReady = new OnMapReadyCallback() {
@@ -95,14 +90,14 @@ public class MapFragment extends Fragment {
         }
 
         private void drawMarkers() {
-       //     myMap.addMarker(new MarkerOptions());
+            myMap.addMarker(new MarkerOptions());
 
             MuralViewModel muralViewModel = new ViewModelProvider(mycontext).get(MuralViewModel.class);
             //TODO: wanneer lijst met Murals omgezet is naar LiveData, hier Observer aanmaken en onChanged() overschrijven
             muralViewModel.getMurals().observe(mycontext, new Observer<List<Mural>>() {
                 @Override
-                public void onChanged(List<Mural> films) {
-                    for (Mural mural : films) {
+                public void onChanged(List<Mural> murals) {
+                    for (Mural mural : murals) {
                         Marker m = myMap.addMarker(new MarkerOptions()
                                 .position(mural.getCoordinates()));
 

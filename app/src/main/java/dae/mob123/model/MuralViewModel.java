@@ -93,6 +93,7 @@ public class MuralViewModel extends AndroidViewModel {
                                                                                  jsonArtwork.getJSONArray("coordonnees_geographiques").getDouble(1))
                         );
                         artworkList.add(currentMural);
+
                         MuralDatabase.databaseWriteExecutor.execute(new Runnable() {
                             @Override
                             public void run() {
@@ -103,6 +104,11 @@ public class MuralViewModel extends AndroidViewModel {
                         });
                         i++;
                     }
+
+                    for(Mural mural : artworkList){
+                        Log.d("Fetched JSON Data:", "" + mural);
+                    }
+
                     murals.postValue(artworkList);
 
                 } catch (IOException e){

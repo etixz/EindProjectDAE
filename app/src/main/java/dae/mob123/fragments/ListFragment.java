@@ -25,6 +25,7 @@ public class ListFragment extends Fragment {
     private FragmentActivity mContext;
     private MuralAdapter muralAdapter;
 
+
     public ListFragment() {
     }
 

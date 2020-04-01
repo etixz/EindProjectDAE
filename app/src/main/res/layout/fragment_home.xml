@@ -9,7 +9,7 @@
     tools:context=".fragments.HomeFragment">
 
     <Button
-        android:id="@+id/btn_about"
+        android:id="@+id/btn_home_about"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
@@ -38,7 +38,7 @@
         android:textColor="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_about" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_home_about" />
 
     <Button
         android:id="@+id/btn_home_map"

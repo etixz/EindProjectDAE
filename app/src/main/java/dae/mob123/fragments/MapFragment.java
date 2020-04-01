@@ -37,13 +37,12 @@ public class MapFragment extends Fragment {
             LatLng coördBrussel = new LatLng(50.858712, 4.347446);
 
             CameraUpdate moveToBrussel = CameraUpdateFactory.newLatLngZoom(coördBrussel, 16);
-
             googleMap.animateCamera(moveToBrussel);
             //googleMap.setMapType(googleMap.MAP_TYPE_SATELLITE);
-
             myMap.setOnInfoWindowClickListener(infoWindowClickListener);
         }
     };
+
     private GoogleMap.OnInfoWindowClickListener infoWindowClickListener = new GoogleMap.OnInfoWindowClickListener() {
         @Override
         public void onInfoWindowClick(Marker marker) {

@@ -15,17 +15,17 @@ import java.util.List;
 public interface MuralDAO {
 
     @Query("SELECT * FROM Mural ORDER BY character")
-    MutableLiveData<List<Mural>> getAllMurals();
+    LiveData<List<Mural>> getAllMurals();
 
     @Query("SELECT * FROM Mural ORDER BY year ASC")
-    MutableLiveData<List<Mural>> getAllMuralsByYear();
+    LiveData<List<Mural>> getAllMuralsByYear();
 
     @Delete
-    void deleteMural(Mural mural);
+    void deleteMural(Mural m);
 
     @Insert
-    void insertMural(Mural mural);
+    void insertMural(Mural m);
 
     @Update
-    void updateMural(Mural mural);
+    void updateMural(Mural m);
 }

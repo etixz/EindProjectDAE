@@ -1,15 +1,19 @@
 package dae.mob123.model;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import com.google.android.gms.maps.model.LatLng;
 
+import java.io.Serializable;
+
 @Entity
-public class Mural {
+public class Mural implements Serializable {
 
     @PrimaryKey
+    @NonNull
     private String artworkID;
     private String artist, imageURL, character, year;
     private LatLng coordinates;

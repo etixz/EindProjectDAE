@@ -4,10 +4,11 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
-import android.app.Application;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
-import androidx.lifecycle.AndroidViewModel;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -21,6 +22,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -31,21 +33,24 @@ import okhttp3.Response;
 //omdat data lokaal zal worden opgeslaan (Room) -> overerven van AndroidViewModel
 public class MuralViewModel extends AndroidViewModel {
 
-    private MutableLiveData<ArrayList<Mural>> murals;
+    private LiveData<List<Mural>> murals;
     private ArrayList<Mural> artworkList;
-    //na aanmaken database, hier field toevoegen
-    private Application mApplication;
+    private MuralDatabase database;
+    private final Application mApplication;
     public ExecutorService threadExecutor = Executors.newFixedThreadPool(4);
 
     public MuralViewModel(@NonNull Application application) {
     //in constructor aangeven in welke applicatie
         super(application);
         mApplication = application;
+        database = MuralDatabase.getInstance(application);
+
         this.murals = new MutableLiveData<>();
+        murals = database.getRepoDao().getAllMurals();
     }
 
     //Opvragen mural list
-    public MutableLiveData<ArrayList<Mural>> getMurals(){
+    public LiveData<List<Mural>> getMurals(){
         fetchMurals();
         return murals;
     }
@@ -91,17 +96,38 @@ public class MuralViewModel extends AndroidViewModel {
                         i++;
                     }
 
-                    for(Mural mural : artworkList){
-                        Log.d("Data from API:", "" + mural);
-                    }
-
-                    murals.postValue(artworkList);
-
                 } catch (IOException e){
                     e.printStackTrace();
                 } catch (JSONException e){
                     e.printStackTrace();
                 }
+            }
+        });
+    }
+
+    public void insertMural(final Mural m){
+        MuralDatabase.databaseWriteExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                database.getRepoDao().insertMural(m);
+            }
+        });
+    }
+
+    public void updateMural(final Mural m){
+        MuralDatabase.databaseWriteExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                database.getRepoDao().updateMural(m);
+            }
+        });
+    }
+
+    public void deleteMural(final Mural m){
+        MuralDatabase.databaseWriteExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                database.getRepoDao().deleteMural(m);
             }
         });
     }

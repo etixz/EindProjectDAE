@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.List;
 
 import dae.mob123.R;
 import dae.mob123.fragments.util.MuralAdapter;
@@ -48,7 +51,13 @@ public class ListFragment extends Fragment {
         muralListRV.setLayoutManager(layoutManager);
         MuralViewModel muralViewModel = new ViewModelProvider(mContext).get(MuralViewModel.class);
         //TODO: wanneer lijst met Murals omgezet is naar LiveData, hier Observer aanmaken en onChanged() overschrijven
-
+        muralViewModel.getMurals().observe(mContext, new Observer<List<Mural>>() {
+            @Override
+            public void onChanged(List<Mural> films) {
+                muralAdapter.addItems(films);
+                muralAdapter.notifyDataSetChanged();
+            }
+        });
         return rootView;
     }
 }

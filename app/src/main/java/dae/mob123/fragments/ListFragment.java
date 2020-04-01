@@ -53,8 +53,8 @@ public class ListFragment extends Fragment {
         //TODO: wanneer lijst met Murals omgezet is naar LiveData, hier Observer aanmaken en onChanged() overschrijven
         muralViewModel.getMurals().observe(mContext, new Observer<List<Mural>>() {
             @Override
-            public void onChanged(List<Mural> films) {
-                muralAdapter.addItems(films);
+            public void onChanged(List<Mural> murals) {
+                muralAdapter.addItems(murals);
                 muralAdapter.notifyDataSetChanged();
             }
         });

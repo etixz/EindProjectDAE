@@ -33,7 +33,7 @@ import okhttp3.Response;
 //omdat data lokaal zal worden opgeslaan (Room) -> overerven van AndroidViewModel
 public class MuralViewModel extends AndroidViewModel {
 
-    private LiveData<List<Mural>> murals;
+    private MutableLiveData<List<Mural>> murals;
     private ArrayList<Mural> artworkList;
     private MuralDatabase database;
     private final Application mApplication;
@@ -46,11 +46,11 @@ public class MuralViewModel extends AndroidViewModel {
         database = MuralDatabase.getInstance(application);
 
         this.murals = new MutableLiveData<>();
-        murals = database.getRepoDao().getAllMurals();
+        murals = (MutableLiveData<List<Mural>>) database.getRepoDao().getAllMurals();
     }
 
     //Opvragen mural list
-    public LiveData<List<Mural>> getMurals(){
+    public MutableLiveData<List<Mural>> getMurals(){
         fetchMurals();
         return murals;
     }
@@ -84,7 +84,7 @@ public class MuralViewModel extends AndroidViewModel {
                         String jsonID = jsonRecordsArray.getJSONObject(i).getString("recordid");
                         JSONObject jsonArtwork = jsonRecordsArray.getJSONObject(i).getJSONObject("fields");
 
-                        Mural currentMural = new Mural(
+                        final Mural currentMural = new Mural(
                                 jsonID,
                                 jsonArtwork.getString("auteur_s"),
                                 jsonArtwork.getString("filename"),
@@ -93,8 +93,17 @@ public class MuralViewModel extends AndroidViewModel {
                                                                                  jsonArtwork.getJSONArray("coordonnees_geographiques").getDouble(1))
                         );
                         artworkList.add(currentMural);
+                        MuralDatabase.databaseWriteExecutor.execute(new Runnable() {
+                            @Override
+                            public void run() {
+                                if(findMuralByID(currentMural.getArtworkID()) == null){
+                                    insertMural(currentMural);
+                                }
+                            }
+                        });
                         i++;
                     }
+                    murals.postValue(artworkList);
 
                 } catch (IOException e){
                     e.printStackTrace();
@@ -105,30 +114,19 @@ public class MuralViewModel extends AndroidViewModel {
         });
     }
 
-    public void insertMural(final Mural m){
-        MuralDatabase.databaseWriteExecutor.execute(new Runnable() {
-            @Override
-            public void run() {
-                database.getRepoDao().insertMural(m);
-            }
-        });
+    public Mural findMuralByID(String id){
+        return MuralDatabase.getInstance(getApplication()).getRepoDao().findMuralByID(id);
     }
 
-    public void updateMural(final Mural m){
-        MuralDatabase.databaseWriteExecutor.execute(new Runnable() {
-            @Override
-            public void run() {
-                database.getRepoDao().updateMural(m);
-            }
-        });
+    public void insertMural( Mural mural){
+        MuralDatabase.getInstance(getApplication()).getRepoDao().insertMural(mural);
     }
 
-    public void deleteMural(final Mural m){
-        MuralDatabase.databaseWriteExecutor.execute(new Runnable() {
-            @Override
-            public void run() {
-                database.getRepoDao().deleteMural(m);
-            }
-        });
+    public void updateMural(Mural mural){
+        MuralDatabase.getInstance(getApplication()).getRepoDao().updateMural(mural);
+    }
+
+    public void deleteMural(Mural mural){
+        MuralDatabase.getInstance(getApplication()).getRepoDao().deleteMural(mural);
     }
 }

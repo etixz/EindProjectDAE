@@ -32,7 +32,6 @@ public class ListFragment extends Fragment {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         mContext = (FragmentActivity) context;
-
     }
 
     @Override

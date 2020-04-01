@@ -15,10 +15,13 @@ import java.util.List;
 public interface MuralDAO {
 
     @Query("SELECT * FROM Mural ORDER BY character")
-    LiveData<List<Mural>> getAllMurals();
+    List<Mural> getAllMurals();
+
+    @Query("SELECT * FROM Mural WHERE artworkID LIKE:artworkID")
+    Mural findMuralByID(String artworkID);
 
     @Query("SELECT * FROM Mural ORDER BY year ASC")
-    LiveData<List<Mural>> getAllMuralsByYear();
+    List<Mural> getAllMuralsByYear();
 
     @Delete
     void deleteMural(Mural m);

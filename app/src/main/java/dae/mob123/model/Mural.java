@@ -16,7 +16,10 @@ public class Mural implements Serializable {
     @NonNull
     private String artworkID;
     private String artist, imageURL, character, year;
+
+    //evt opsplitsen in 2 doubles
     private LatLng coordinates;
+
 
     public Mural() {
     }

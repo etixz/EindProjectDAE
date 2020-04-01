@@ -4,8 +4,8 @@ import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -25,7 +25,7 @@ import dae.mob123.model.MuralViewModel;
 
 public class ListFragment extends Fragment {
 
-    private FragmentActivity mContext;
+    private AppCompatActivity mContext;
     private MuralAdapter muralAdapter;
 
 
@@ -35,7 +35,7 @@ public class ListFragment extends Fragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        mContext = (FragmentActivity) context;
+        mContext = (AppCompatActivity) context;
     }
 
     @Override

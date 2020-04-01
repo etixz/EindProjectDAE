@@ -36,7 +36,7 @@ public class MuralViewModel extends AndroidViewModel {
     private MutableLiveData<List<Mural>> murals;
     private ArrayList<Mural> artworkList;
     private MuralDatabase database;
-    private Application mApplication;
+    private final Application mApplication;
     public ExecutorService threadExecutor = Executors.newFixedThreadPool(4);
 
     public MuralViewModel(@NonNull Application application) {
@@ -46,6 +46,7 @@ public class MuralViewModel extends AndroidViewModel {
         database = MuralDatabase.getInstance(application);
 
         this.murals = new MutableLiveData<>();
+        //murals = (MutableLiveData<List<Mural>>) database.getRepoDao().getAllMurals();
     }
 
     //Opvragen mural list
@@ -85,11 +86,10 @@ public class MuralViewModel extends AndroidViewModel {
 
                         final Mural currentMural = new Mural(
                                 jsonID,
-                                (jsonArtwork.has("auteur_s")) ? jsonArtwork.getString("auteur_s") : "Unknown Author",
-                                (jsonArtwork.has("filename")) ? jsonArtwork.getJSONObject("photo").getString("filename") : "No picture available!",
-                                (jsonArtwork.has("personnage_s")) ? jsonArtwork.getString("personnage_s") : "Unknown character",
-                                (jsonArtwork.has("annee")) ? jsonArtwork.getString("annee") : "Unknown year of creation",
-                                new LatLng(jsonArtwork.getJSONArray("coordonnees_geographiques").getDouble(0),
+                                (jsonArtwork.has("auteur_s")) ? jsonArtwork.getString("auteur_s") : "Unknown",
+                                jsonArtwork.getString("filename"), //filename zit binnen object photo
+                                jsonArtwork.getString("personnage_s"),
+                                jsonArtwork.getString("annee"), new LatLng(jsonArtwork.getJSONArray("coordonnees_geographiques").getDouble(0),
                                                                                  jsonArtwork.getJSONArray("coordonnees_geographiques").getDouble(1))
                         );
                         artworkList.add(currentMural);

@@ -2,6 +2,7 @@ package dae.mob123.fragments.util;
 
 import android.app.Application;
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.FragmentActivity;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -30,7 +32,10 @@ public class MuralAdapter extends RecyclerView.Adapter<MuralAdapter.MuralViewHol
         private final View.OnClickListener detailListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO: bundle data and put serializable
+                int position = getAdapterPosition();
+                Bundle dataToSend = new Bundle();
+                dataToSend.putSerializable("mural_to_detail", items.get(position));
+                Navigation.findNavController(view).navigate(R.id.list_to_detail, dataToSend);
             }
         };
         public MuralViewHolder(@NonNull View cardView) {

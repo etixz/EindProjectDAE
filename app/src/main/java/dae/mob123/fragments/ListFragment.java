@@ -50,7 +50,6 @@ public class ListFragment extends Fragment {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
         muralListRV.setLayoutManager(layoutManager);
         MuralViewModel muralViewModel = new ViewModelProvider(mContext).get(MuralViewModel.class);
-        //TODO: wanneer lijst met Murals omgezet is naar LiveData, hier Observer aanmaken en onChanged() overschrijven
         muralViewModel.getMurals().observe(mContext, new Observer<List<Mural>>() {
             @Override
             public void onChanged(List<Mural> murals) {

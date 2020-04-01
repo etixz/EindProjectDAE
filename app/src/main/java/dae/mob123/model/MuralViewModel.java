@@ -86,10 +86,11 @@ public class MuralViewModel extends AndroidViewModel {
 
                         final Mural currentMural = new Mural(
                                 jsonID,
-                                (jsonArtwork.has("auteur_s")) ? jsonArtwork.getString("auteur_s") : "Unknown",
-                                jsonArtwork.getString("filename"), //filename zit binnen object photo
-                                jsonArtwork.getString("personnage_s"),
-                                jsonArtwork.getString("annee"), new LatLng(jsonArtwork.getJSONArray("coordonnees_geographiques").getDouble(0),
+                                (jsonArtwork.has("auteur_s")) ? jsonArtwork.getString("auteur_s") : "Unknown Author",
+                                (jsonArtwork.has("filename")) ? jsonArtwork.getJSONObject("photo").getString("filename") : "No picture available!",
+                                (jsonArtwork.has("personnage_s")) ? jsonArtwork.getString("personnage_s") : "Unknown character",
+                                (jsonArtwork.has("annee")) ? jsonArtwork.getString("annee") : "Unknown year of creation",
+                                new LatLng(jsonArtwork.getJSONArray("coordonnees_geographiques").getDouble(0),
                                                                                  jsonArtwork.getJSONArray("coordonnees_geographiques").getDouble(1))
                         );
                         artworkList.add(currentMural);

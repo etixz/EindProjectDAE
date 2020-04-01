@@ -38,6 +38,7 @@ public class MapFragment extends Fragment {
 
     private MapView mapView;
     private GoogleMap myMap;
+    //TODO context instellen, onAttach
     private AppCompatActivity mycontext;
 
     private OnMapReadyCallback onMapReady = new OnMapReadyCallback() {
@@ -94,7 +95,7 @@ public class MapFragment extends Fragment {
         }
 
         private void drawMarkers() {
-            myMap.addMarker(new MarkerOptions());
+       //     myMap.addMarker(new MarkerOptions());
 
             MuralViewModel muralViewModel = new ViewModelProvider(mycontext).get(MuralViewModel.class);
             //TODO: wanneer lijst met Murals omgezet is naar LiveData, hier Observer aanmaken en onChanged() overschrijven

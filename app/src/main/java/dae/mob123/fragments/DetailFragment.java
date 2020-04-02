@@ -7,7 +7,10 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import dae.mob123.R;
 import dae.mob123.model.Mural;
@@ -18,6 +21,7 @@ public class DetailFragment extends Fragment {
     private TextView characterTV, artistYearTV, streetAddressTV;
     private Mural muralFromList;
     private Bundle dataFromList;
+    private ImageView imageIV;
 
     public DetailFragment() {
     }
@@ -30,11 +34,13 @@ public class DetailFragment extends Fragment {
         characterTV = rootView.findViewById(R.id.tv_detail_character);
         artistYearTV = rootView.findViewById(R.id.tv_detil_artistyear);
         streetAddressTV = rootView.findViewById(R.id.tv_detail_street);
+        imageIV = rootView.findViewById(R.id.iv_detail_img);
 
         if (dataPassed()){
             muralFromList = (Mural) dataFromList.getSerializable("mural_to_detail");
             characterTV.setText(muralFromList.getCharacter());
-            artistYearTV.setText(muralFromList.getArtist() + ", " + muralFromList.getYear());
+            artistYearTV.setText(muralFromList.getImageURL());
+            Picasso.get().load("https://opendata.bruxelles.be/api/v2/catalog/datasets/comic-book-route/files/" + muralFromList.getImageURL()).into(imageIV);
 
         }
 

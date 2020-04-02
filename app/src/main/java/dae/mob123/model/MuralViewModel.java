@@ -37,6 +37,7 @@ public class MuralViewModel extends AndroidViewModel {
     private ArrayList<Mural> artworkList;
     private MuralDatabase database;
     private final Application mApplication;
+    private final String IMAGE_URL = "https://opendata.bruxelles.be/api/v2/catalog/datasets/comic-book-route/files/";
     public ExecutorService threadExecutor = Executors.newFixedThreadPool(4);
 
     public MuralViewModel(@NonNull Application application) {
@@ -83,6 +84,8 @@ public class MuralViewModel extends AndroidViewModel {
                     while(i < arraySize){
                         String jsonID = jsonRecordsArray.getJSONObject(i).getString("recordid");
                         JSONObject jsonArtwork = jsonRecordsArray.getJSONObject(i).getJSONObject("fields");
+
+
 
                         final Mural currentMural = new Mural(
                                 jsonID,

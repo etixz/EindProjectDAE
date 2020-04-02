@@ -70,7 +70,8 @@ public class MuralAdapter extends RecyclerView.Adapter<MuralAdapter.MuralViewHol
         Mural currentMural = items.get(position);
         cardHolder.characterMuralTV.setText(currentMural.getCharacter().toUpperCase());
         cardHolder.artistYearMuralTV.setText("by " + currentMural.getArtist() + ", " + currentMural.getYear());
-        cardHolder.addressMuralTV.setText(currentMural.getCoordinates().toString());
+//        cardHolder.addressMuralTV.setText(currentMural.getCoordinates().toString());
+        cardHolder.addressMuralTV.setText(currentMural.getImageURL());
     }
 
     @Override

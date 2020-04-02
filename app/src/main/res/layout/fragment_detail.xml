@@ -55,4 +55,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_detil_artistyear"
         tools:text="Basji-bozoeklaan 420, 1080 Brussel" />
+
+    <ImageView
+        android:id="@+id/iv_detail_img"
+        android:layout_width="373dp"
+        android:layout_height="209dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:src="@mipmap/ic_launcher"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_detail_street" />
 </androidx.constraintlayout.widget.ConstraintLayout>

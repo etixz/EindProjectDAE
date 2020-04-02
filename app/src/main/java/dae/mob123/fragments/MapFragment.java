@@ -11,12 +11,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -68,6 +70,7 @@ public class MapFragment extends Fragment {
 
         private void setMarkerAdapter() {
             myMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+
                 @Override
                 public View getInfoWindow(Marker marker) {
                     return null;
@@ -80,6 +83,13 @@ public class MapFragment extends Fragment {
                     TextView tvArtistYear = cardView.findViewById(R.id.tv_card_mural_artistyear);
                     TextView tvAddress = cardView.findViewById(R.id.tv_card_mural_address);
 
+                    cardView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Navigation.findNavController(v).navigate(R.id.detailFragment);
+                        }
+                    });
+
                     tvCharacter.setText(marker.getTitle());
                     tvArtistYear.setText(marker.getTitle());
                     tvAddress.setText(marker.getTitle());
@@ -90,7 +100,10 @@ public class MapFragment extends Fragment {
         }
 
         private void drawMarkers() {
-            myMap.addMarker(new MarkerOptions());
+            myMap.addMarker(new MarkerOptions()
+                    .icon(BitmapDescriptorFactory.defaultMarker()));
+
+
 
             MuralViewModel muralViewModel = new ViewModelProvider(mycontext).get(MuralViewModel.class);
             //TODO: wanneer lijst met Murals omgezet is naar LiveData, hier Observer aanmaken en onChanged() overschrijven

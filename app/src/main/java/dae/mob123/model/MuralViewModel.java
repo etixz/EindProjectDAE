@@ -37,7 +37,6 @@ public class MuralViewModel extends AndroidViewModel {
     private ArrayList<Mural> artworkList;
     private MuralDatabase database;
     private final Application mApplication;
-    private final String IMAGE_URL = "https://opendata.bruxelles.be/api/v2/catalog/datasets/comic-book-route/files/";
     public ExecutorService threadExecutor = Executors.newFixedThreadPool(4);
 
     public MuralViewModel(@NonNull Application application) {
@@ -94,7 +93,7 @@ public class MuralViewModel extends AndroidViewModel {
                                 (jsonArtwork.has("personnage_s")) ? jsonArtwork.getString("personnage_s") : "Unknown character",
                                 (jsonArtwork.has("annee")) ? jsonArtwork.getString("annee") : "Unknown year of creation",
                                 new LatLng(jsonArtwork.getJSONArray("coordonnees_geographiques").getDouble(0),
-                                                                                 jsonArtwork.getJSONArray("coordonnees_geographiques").getDouble(1))
+                                           jsonArtwork.getJSONArray("coordonnees_geographiques").getDouble(1))
                         );
                         artworkList.add(currentMural);
 

@@ -18,11 +18,25 @@ import dae.mob123.R;
 public class HomeFragment extends Fragment {
 
 
-    private Button toListBtn;
+    private Button toListBtn, toMapBtn, toAboutBtn;
+
     private View.OnClickListener toListListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             Navigation.findNavController(view).navigate(R.id.home_to_list);
+        }
+    };
+    private View.OnClickListener toMapListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Navigation.findNavController(v).navigate(R.id.home_to_map);
+        }
+    };
+
+    private View.OnClickListener toAboutListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Navigation.findNavController(v).navigate(R.id.home_to_about);
         }
     };
 
@@ -38,6 +52,12 @@ public class HomeFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
          toListBtn = rootView.findViewById(R.id.btn_home_list);
          toListBtn.setOnClickListener(toListListener);
+
+         toMapBtn = rootView.findViewById(R.id.btn_home_map);
+         toMapBtn.setOnClickListener(toMapListener);
+
+         toAboutBtn = rootView.findViewById(R.id.btn_home_about);
+         toAboutBtn.setOnClickListener(toAboutListener);
         return rootView;
     }
 }

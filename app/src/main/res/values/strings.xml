@@ -6,6 +6,7 @@
     <string name="str_btn_home_about">Over het stripparcours</string>
     <string name="str_btn_home_list">Lijst van stripmuren</string>
     <string name="str_btn_home_map">Kaart met stripmuren</string>
+    <string name="str_btn_home_routes">Lijst met recommended routes</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

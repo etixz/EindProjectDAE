@@ -75,6 +75,7 @@ public class MuralViewModel extends AndroidViewModel {
                     JSONObject jsonObject = new JSONObject(json);
                     JSONArray jsonRecordsArray = jsonObject.getJSONArray("records");
 
+
                     int arraySize = jsonRecordsArray.length();
                     int i = 0;
 

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav"
-    app:startDestination="@id/listFragment">
+    app:startDestination="@id/homeFragment">
 
     <fragment
         android:id="@+id/homeFragment"
@@ -19,6 +19,9 @@
         <action
             android:id="@+id/home_to_map"
             app:destination="@id/mapFragment" />
+        <action
+            android:id="@+id/home_to_routes"
+            app:destination="@id/routeFragment" />
     </fragment>
     <fragment
         android:id="@+id/aboutFragment"
@@ -47,4 +50,9 @@
             android:name="mural_to_detail"
             app:argType="dae.mob123.model.Mural" />
     </fragment>
+    <fragment
+        android:id="@+id/routeFragment"
+        android:name="dae.mob123.fragments.RouteFragment"
+        android:label="fragment_route"
+        tools:layout="@layout/fragment_route" />
 </navigation>

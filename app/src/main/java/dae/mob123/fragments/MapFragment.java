@@ -104,8 +104,6 @@ public class MapFragment extends Fragment {
             myMap.addMarker(new MarkerOptions()
                     .icon(BitmapDescriptorFactory.defaultMarker()));
 
-
-
             MuralViewModel muralViewModel = new ViewModelProvider(mycontext).get(MuralViewModel.class);
             //TODO: wanneer lijst met Murals omgezet is naar LiveData, hier Observer aanmaken en onChanged() overschrijven
             muralViewModel.getMurals().observe(mycontext, new Observer<List<Mural>>() {

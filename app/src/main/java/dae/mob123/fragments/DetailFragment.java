@@ -38,8 +38,8 @@ public class DetailFragment extends Fragment {
         if (dataPassed()){
             muralFromList = (Mural) dataFromList.getSerializable("mural_to_detail");
             characterTV.setText(muralFromList.getCharacter());
-            artistYearTV.setText(muralFromList.getImageURL());
-            Picasso.get().load("https://opendata.bruxelles.be/api/v2/catalog/datasets/comic-book-route/files/" + muralFromList.getImageURL()).into(imageIV);
+            artistYearTV.setText("By " + muralFromList.getArtist() + ", ");
+            //Picasso.get().load("https://opendata.bruxelles.be/api/v2/catalog/datasets/comic-book-route/files/" + muralFromList.getImageURL()).into(imageIV);
 
         }
 

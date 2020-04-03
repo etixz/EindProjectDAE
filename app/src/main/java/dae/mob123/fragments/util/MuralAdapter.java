@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-import androidx.fragment.app.FragmentActivity;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -69,9 +68,9 @@ public class MuralAdapter extends RecyclerView.Adapter<MuralAdapter.MuralViewHol
     public void onBindViewHolder(@NonNull MuralViewHolder cardHolder, int position) {
         Mural currentMural = items.get(position);
         cardHolder.characterMuralTV.setText(currentMural.getCharacter().toUpperCase());
-        cardHolder.artistYearMuralTV.setText("by " + currentMural.getArtist() + ", " + currentMural.getYear());
-//        cardHolder.addressMuralTV.setText(currentMural.getCoordinates().toString());
-        cardHolder.addressMuralTV.setText(currentMural.getImageURL());
+        cardHolder.artistYearMuralTV.setText("By " + currentMural.getArtist() + ", " + currentMural.getYear());
+        cardHolder.addressMuralTV.setText(currentMural.getCoordinates().toString());
+
     }
 
     @Override

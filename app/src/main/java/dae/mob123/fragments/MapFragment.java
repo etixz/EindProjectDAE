@@ -64,6 +64,7 @@ public class MapFragment extends Fragment {
             public void onInfoWindowClick(Marker marker) {
                 Mural mural = (Mural) marker.getTag();
                 if (mural != null)
+                    //TODO: Bundle aanmaken, serializable te steken en doorsturen met navigatie naar Detail
                     Toast.makeText(getActivity(), mural.getCharacter(), Toast.LENGTH_SHORT).show();
             }
         };

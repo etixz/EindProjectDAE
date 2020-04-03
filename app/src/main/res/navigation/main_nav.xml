@@ -26,7 +26,6 @@
     <fragment
         android:id="@+id/aboutFragment"
         android:name="dae.mob123.fragments.AboutFragment"
-        android:label="fragment_about"
         tools:layout="@layout/fragment_about" />
     <fragment
         android:id="@+id/listFragment"
@@ -41,7 +40,11 @@
     <fragment
         android:id="@+id/mapFragment"
         android:name="dae.mob123.fragments.MapFragment"
-        android:label="MapFragment" />
+        android:label="t" >
+        <action
+            android:id="@+id/map_to_detail"
+            app:destination="@id/detailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/detailFragment"
         android:name="dae.mob123.fragments.DetailFragment"
@@ -53,6 +56,5 @@
     <fragment
         android:id="@+id/routeFragment"
         android:name="dae.mob123.fragments.RouteFragment"
-        android:label="fragment_route"
         tools:layout="@layout/fragment_route" />
 </navigation>

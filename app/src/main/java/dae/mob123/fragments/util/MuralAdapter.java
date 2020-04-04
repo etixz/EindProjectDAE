@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,7 +24,7 @@ public class MuralAdapter extends RecyclerView.Adapter<MuralAdapter.MuralViewHol
     //inner class
     class MuralViewHolder extends RecyclerView.ViewHolder{
         //verwijzingen naar componenten in cardview
-        private CardView muralCV;
+        private ConstraintLayout muralCardLayout;
         private TextView artistYearMuralTV;
         private TextView characterMuralTV;
         private TextView addressMuralTV;
@@ -39,11 +39,11 @@ public class MuralAdapter extends RecyclerView.Adapter<MuralAdapter.MuralViewHol
         };
         public MuralViewHolder(@NonNull View cardView) {
             super(cardView);
-            muralCV = cardView.findViewById(R.id.cv_mural_card);
+            muralCardLayout = cardView.findViewById(R.id.card_layout);
             artistYearMuralTV = cardView.findViewById(R.id.tv_card_mural_artistyear);
             characterMuralTV = cardView.findViewById(R.id.tv_card_mural_character);
             addressMuralTV = cardView.findViewById(R.id.tv_card_mural_address);
-            muralCV.setOnClickListener(detailListener);
+            muralCardLayout.setOnClickListener(detailListener);
         }
     }
 

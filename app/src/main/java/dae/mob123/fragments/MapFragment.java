@@ -87,7 +87,7 @@ public class MapFragment extends Fragment {
                     cardView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Navigation.findNavController(v).navigate(R.id.detailFragment);
+                            Navigation.findNavController(v).navigate(R.id.detail_fragment);
                         }
                     });
 

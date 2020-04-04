@@ -3,50 +3,49 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/home_fragment">
 
     <fragment
-        android:id="@+id/homeFragment"
+        android:id="@+id/home_fragment"
         android:name="dae.mob123.fragments.HomeFragment"
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/home_to_about"
-            app:destination="@id/aboutFragment"
+            app:destination="@id/about_fragment"
             app:enterAnim="@anim/nav_default_enter_anim" />
         <action
             android:id="@+id/home_to_list"
-            app:destination="@id/listFragment" />
+            app:destination="@id/list_fragment" />
         <action
             android:id="@+id/home_to_map"
-            app:destination="@id/mapFragment" />
+            app:destination="@id/map_fragment" />
         <action
             android:id="@+id/home_to_routes"
-            app:destination="@id/routeFragment" />
+            app:destination="@id/route_fragment" />
     </fragment>
     <fragment
-        android:id="@+id/aboutFragment"
+        android:id="@+id/about_fragment"
         android:name="dae.mob123.fragments.AboutFragment"
         tools:layout="@layout/fragment_about" />
     <fragment
-        android:id="@+id/listFragment"
+        android:id="@+id/list_fragment"
         android:name="dae.mob123.fragments.ListFragment"
         tools:layout="@layout/fragment_list" >
         <action
             android:id="@+id/list_to_detail"
-            app:destination="@id/detailFragment"
+            app:destination="@id/detail_fragment"
             app:enterAnim="@anim/nav_default_pop_enter_anim"
             app:exitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
-        android:id="@+id/mapFragment"
-        android:name="dae.mob123.fragments.MapFragment"
-        android:label="t" >
+        android:id="@+id/map_fragment"
+        android:name="dae.mob123.fragments.MapFragment">
         <action
             android:id="@+id/map_to_detail"
-            app:destination="@id/detailFragment" />
+            app:destination="@id/detail_fragment" />
     </fragment>
     <fragment
-        android:id="@+id/detailFragment"
+        android:id="@+id/detail_fragment"
         android:name="dae.mob123.fragments.DetailFragment"
         tools:layout="@layout/fragment_detail" >
         <argument
@@ -54,7 +53,11 @@
             app:argType="dae.mob123.model.Mural" />
     </fragment>
     <fragment
-        android:id="@+id/routeFragment"
+        android:id="@+id/route_fragment"
         android:name="dae.mob123.fragments.RouteFragment"
         tools:layout="@layout/fragment_route" />
+    <fragment
+        android:id="@+id/settings_fragment"
+        android:name="dae.mob123.fragments.SettingsFragment"
+        tools:layout="@layout/fragment_settings" />
 </navigation>

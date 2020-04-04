@@ -1,6 +1,6 @@
 package dae.mob123.model;
 
-import androidx.lifecycle.LiveData;
+
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -14,6 +14,9 @@ public interface MuralDAO {
 
     @Query("SELECT * FROM Mural ORDER BY character")
     List<Mural> getAllMurals();
+
+    @Query("SELECT * FROM Mural ORDER BY artist")
+    List<Mural> getAllMuralsOrderByArtist();
 
     @Query("SELECT * FROM Mural WHERE artworkID LIKE:artworkID")
     Mural findMuralByID(String artworkID);

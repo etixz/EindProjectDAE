@@ -12,9 +12,7 @@ import android.widget.Button;
 
 import dae.mob123.R;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 public class HomeFragment extends Fragment {
 
 
@@ -47,7 +45,6 @@ public class HomeFragment extends Fragment {
     };
 
     public HomeFragment() {
-        // Required empty public constructor
     }
 
 

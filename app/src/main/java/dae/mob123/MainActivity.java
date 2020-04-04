@@ -1,5 +1,6 @@
 package dae.mob123;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.navigation.NavController;
@@ -8,6 +9,9 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+
 //author: DG
 public class MainActivity extends AppCompatActivity {
     // navigeren dmv navhost uit UI
@@ -27,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         // navcontroller binnen huidige activity linken aan de navhost via ID
         navController = Navigation.findNavController(this, R.id.nav_container);
         // instellen van top-level in de navigatie
-        appBarConfiguration = new AppBarConfiguration.Builder(R.id.homeFragment).build();
+        appBarConfiguration = new AppBarConfiguration.Builder(R.id.home_fragment).build();
         // navcontroller en de appbarconfig aan elkaar koppelen
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
@@ -39,5 +43,20 @@ public class MainActivity extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, appBarConfiguration) || super.onSupportNavigateUp();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        //welk menu-item is geselecteerd
+        switch (item.getItemId()){
+            //navigatie starten door menu-item in de nav controller aan te spreken
+            //ID van fragment in main_nav moet overeenkomen met ID van component in main_menu
+            case R.id.settings_fragment: NavigationUI.onNavDestinationSelected(item, navController);
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

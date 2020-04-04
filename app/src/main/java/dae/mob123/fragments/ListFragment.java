@@ -50,6 +50,7 @@ public class ListFragment extends Fragment {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
         muralListRV.setLayoutManager(layoutManager);
         MuralViewModel muralViewModel = new ViewModelProvider(mContext).get(MuralViewModel.class);
+
         muralViewModel.getMurals().observe(mContext, new Observer<List<Mural>>() {
             @Override
             public void onChanged(List<Mural> murals) {

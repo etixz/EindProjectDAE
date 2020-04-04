@@ -1,6 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        alpha_build {
+            storeFile file('..\\..\\..\\Eindproject_Android\\dae_key_store.jks')
+            storePassword 'Mobapp123'
+            keyAlias = 'dae_key'
+            keyPassword 'MobappDAE'
+        }
+    }
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
 
@@ -18,6 +26,10 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.alpha_build
+        }
+        debug {
+            signingConfig signingConfigs.alpha_build
         }
     }
     compileOptions {

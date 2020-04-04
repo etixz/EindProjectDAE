@@ -40,9 +40,6 @@ import dae.mob123.model.Mural;
 import dae.mob123.model.MuralViewModel;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class MapFragment extends Fragment {
 
     private MapView mapView;
@@ -51,9 +48,21 @@ public class MapFragment extends Fragment {
     private LatLng markerLatLng;
     private Marker customMarker;
 
+    private GoogleMap.OnInfoWindowClickListener infoWindowClickListener = new GoogleMap.OnInfoWindowClickListener() {
+        @Override
+        public void onInfoWindowClick(Marker marker) {
+            Mural mural = (Mural) marker.getTag();
+            if (mural != null)
+                //TODO: Bundle aanmaken, serializable te steken en doorsturen met navigatie naar Detail
+                Toast.makeText(getActivity(), mural.getCharacter(), Toast.LENGTH_SHORT).show();
+        }
+    };
+
+    public MapFragment() {
+    }
+
+
     private OnMapReadyCallback onMapReady = new OnMapReadyCallback() {
-
-
         @Override
         public void onMapReady(GoogleMap googleMap) {
             //field maken om de googlemap instantie in andere methoden te krijgen
@@ -76,19 +85,6 @@ public class MapFragment extends Fragment {
         }
     };
 
-    private GoogleMap.OnInfoWindowClickListener infoWindowClickListener = new GoogleMap.OnInfoWindowClickListener() {
-        @Override
-        public void onInfoWindowClick(Marker marker) {
-            Mural mural = (Mural) marker.getTag();
-            if (mural != null)
-                //TODO: Bundle aanmaken, serializable te steken en doorsturen met navigatie naar Detail
-                Toast.makeText(getActivity(), mural.getCharacter(), Toast.LENGTH_SHORT).show();
-
-        }
-
-    };
-
-
     private void setMarkerAdapter() {
         myMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
 
@@ -103,13 +99,12 @@ public class MapFragment extends Fragment {
                 TextView tvCharacter = cardView.findViewById(R.id.tv_card_mural_character);
                 TextView tvArtistYear = cardView.findViewById(R.id.tv_card_mural_artistyear);
                 TextView tvAddress = cardView.findViewById(R.id.tv_card_mural_address);
-
-                cardView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Navigation.findNavController(v).navigate(R.id.detailFragment);
-                    }
-                });
+//                cardView.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        Navigation.findNavController(view).navigate();
+//                    }
+//                });
 
 
                 tvCharacter.setText(marker.getTitle());
@@ -129,7 +124,7 @@ public class MapFragment extends Fragment {
         customMarker = myMap.addMarker(new MarkerOptions()
                 .icon(BitmapDescriptorFactory.fromBitmap(createDrawableFromView(mycontext, marker))));
 
-        final View mapView = getChildFragmentManager().findFragmentById(R.id.mapFragment).getView();
+        final View mapView = getChildFragmentManager().findFragmentById(R.id.map_fragment).getView();
         if (mapView.getViewTreeObserver().isAlive()) {
             mapView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                 @SuppressLint("NewApi")
@@ -182,12 +177,6 @@ public class MapFragment extends Fragment {
 
         return bitmap;
     }
-
-
-    public MapFragment() {
-        // Required empty public constructor
-    }
-
 
 
 

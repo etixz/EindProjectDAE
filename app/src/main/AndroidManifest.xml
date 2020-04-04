@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
         <meta-data android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDl0O1Xp1EBA8UcUGMV-k74KwzVpu3Ipdk">
+            android:value="trukken van de foor">
         </meta-data>
     </application>
 

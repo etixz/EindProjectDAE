@@ -96,21 +96,12 @@ public class MapFragment extends Fragment {
             @Override
             public View getInfoContents(Marker marker) {
                 View cardView = getActivity().getLayoutInflater().inflate(R.layout.mural_card, null, false);
-                TextView tvCharacter = cardView.findViewById(R.id.tv_card_mural_character);
-                TextView tvArtistYear = cardView.findViewById(R.id.tv_card_mural_artistyear);
-                TextView tvAddress = cardView.findViewById(R.id.tv_card_mural_address);
-//                cardView.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        Navigation.findNavController(view).navigate();
-//                    }
-//                });
 
+                TextView titleTV = cardView.findViewById(R.id.tv_mural_marker_card_title);
+                TextView addressTV = cardView.findViewById(R.id.tv_mural_marker_card_snippet);
 
-                tvCharacter.setText(marker.getTitle());
-                tvArtistYear.setText(marker.getTitle());
-                tvAddress.setText(marker.getTitle());
-
+                titleTV.setText(marker.getTitle());
+                addressTV.setText(marker.getSnippet());
 
                 return cardView;
             }
@@ -128,7 +119,6 @@ public class MapFragment extends Fragment {
         if (mapView.getViewTreeObserver().isAlive()) {
             mapView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                 @SuppressLint("NewApi")
-
                 // nakijken welke build version dat wij aan gebruiken zijn.
                 @Override
                 public void onGlobalLayout() {
@@ -144,17 +134,14 @@ public class MapFragment extends Fragment {
         }
 
         MuralViewModel muralViewModel = new ViewModelProvider(mycontext).get(MuralViewModel.class);
-        //TODO: wanneer lijst met Murals omgezet is naar LiveData, hier Observer aanmaken en onChanged() overschrijven
         muralViewModel.getMurals().observe(mycontext, new Observer<List<Mural>>() {
             @Override
             public void onChanged(List<Mural> murals) {
                 for (Mural mural : murals) {
                     Marker m = myMap.addMarker(new MarkerOptions()
                             .position(mural.getCoordinates()));
-
                     m.setTitle(mural.getCharacter());
-                    m.setTitle(mural.getYear());
-                    m.setTitle(String.valueOf(mural.getCoordinates()));
+                    m.setSnippet(String.valueOf(mural.getCoordinates()));
                     m.setTag(mural);
                 }
             }
@@ -183,7 +170,6 @@ public class MapFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_map, container, false);
         mapView = rootView.findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);

@@ -5,13 +5,13 @@
     android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.AboutFragment" >
+    android:background="@color/colorPrimary"
+    tools:context=".fragments.AboutFragment">
 
     <TextView
         android:id="@+id/tv_about_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
         android:background="@android:color/background_dark"
         android:gravity="center"
         android:paddingLeft="16dp"
@@ -41,6 +41,7 @@
         android:paddingRight="4dp"
         android:text="@string/str_tv_about_content"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@color/colorAccent"
         app:fontFamily="@font/cantarell_regular"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

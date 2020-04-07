@@ -20,6 +20,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -39,7 +40,7 @@ public class MapFragment extends Fragment {
     private MapView mapView;
     private GoogleMap myMap;
     private FragmentActivity myContext;
-    private final LatLng COORD_BXL = new LatLng(50.858712, 4.347446);
+    private final LatLng COORD_BXL = new LatLng(50.8503463, 4.3517211);
 //    private Marker customMarker;
 
     private GoogleMap.OnInfoWindowClickListener detailListener = new GoogleMap.OnInfoWindowClickListener() {
@@ -51,6 +52,7 @@ public class MapFragment extends Fragment {
                 Toast.makeText(getActivity(), mural.getCharacter(), Toast.LENGTH_SHORT).show();
         }
     };
+
 
     public MapFragment() {
     }
@@ -93,13 +95,16 @@ public class MapFragment extends Fragment {
     }
 
     private void drawMarkers() {
+
         MuralViewModel muralViewModel = new ViewModelProvider(myContext).get(MuralViewModel.class);
         muralViewModel.getMurals().observe(myContext, new Observer<List<Mural>>() {
             @Override
             public void onChanged(List<Mural> murals) {
                 for (Mural mural : murals) {
                     Log.e("DEBUG", mural.toString());
-                    Marker marker = myMap.addMarker(new MarkerOptions().position(mural.getCoordinates()));
+                    Marker marker = myMap.addMarker(new MarkerOptions()
+                            .position(mural.getCoordinates())
+                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.custom_marker)));
                     marker.setTitle(mural.getCharacter());
                     LocationConverter myConverter = new LocationConverter();
                     marker.setSnippet(myConverter.convertCoordinatesToAddress(myContext, mural.getCoordinates()));
@@ -150,20 +155,20 @@ public class MapFragment extends Fragment {
 
 
     // omzetten van een view in een bitmap
-//    public static Bitmap createDrawableFromView(Context mycontext, View mapView) {
-//        DisplayMetrics displayMetrics = new DisplayMetrics();
-//        ((Activity) mycontext).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-//        mapView.setLayoutParams(new ActionBar.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT));
-//        mapView.measure(displayMetrics.widthPixels, displayMetrics.heightPixels);
-//        mapView.layout(0, 0, displayMetrics.widthPixels, displayMetrics.heightPixels);
-//        mapView.buildDrawingCache();
-//        Bitmap bitmap = Bitmap.createBitmap(mapView.getMeasuredWidth(), mapView.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
-//
-//        Canvas canvas = new Canvas(bitmap);
-//        mapView.draw(canvas);
-//
-//        return bitmap;
-//    }
+   // public static Bitmap createDrawableFromView(Context mycontext, View mapView) {
+     //   DisplayMetrics displayMetrics = new DisplayMetrics();
+       // ((Activity) mycontext).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        //mapView.setLayoutParams(new ActionBar.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT));
+        //mapView.measure(displayMetrics.widthPixels, displayMetrics.heightPixels);
+        //mapView.layout(0, 0, displayMetrics.widthPixels, displayMetrics.heightPixels);
+        //mapView.buildDrawingCache();
+        //Bitmap bitmap = Bitmap.createBitmap(mapView.getMeasuredWidth(), mapView.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
+
+        //Canvas canvas = new Canvas(bitmap);
+        //mapView.draw(canvas);
+
+        //return bitmap;
+    //}
 
     @Override
     public void onAttach(@NonNull Context context) {

@@ -2,6 +2,8 @@ package dae.mob123.fragments.util;
 
 import android.app.Application;
 import android.content.Context;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,8 +15,12 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.maps.model.LatLng;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import dae.mob123.R;
 import dae.mob123.model.Mural;
@@ -49,6 +55,7 @@ public class MuralAdapter extends RecyclerView.Adapter<MuralAdapter.MuralViewHol
 
     private Application mApplication;
     private List<Mural> items;
+    private LocationConverter mConverter;
 
     public MuralAdapter(Application mApplication) {
         this.mApplication = mApplication;
@@ -69,8 +76,8 @@ public class MuralAdapter extends RecyclerView.Adapter<MuralAdapter.MuralViewHol
         Mural currentMural = items.get(position);
         cardHolder.characterMuralTV.setText(currentMural.getCharacter().toUpperCase());
         cardHolder.artistYearMuralTV.setText("By " + currentMural.getArtist() + ", " + currentMural.getYear());
-        cardHolder.addressMuralTV.setText(currentMural.getCoordinates().toString());
-
+        mConverter = new LocationConverter();
+        cardHolder.addressMuralTV.setText(mConverter.latLngToAddress(mApplication, currentMural.getCoordinates()));
     }
 
     @Override

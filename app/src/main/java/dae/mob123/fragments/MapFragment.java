@@ -35,6 +35,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.List;
 
 import dae.mob123.R;
+import dae.mob123.fragments.util.LocationConverter;
 import dae.mob123.model.Mural;
 import dae.mob123.model.MuralViewModel;
 
@@ -89,13 +90,10 @@ public class MapFragment extends Fragment {
             @Override
             public View getInfoContents(Marker marker) {
                 View cardView = getActivity().getLayoutInflater().inflate(R.layout.mural_marker, null, false);
-
                 TextView titleTV = cardView.findViewById(R.id.tv_mural_marker_card_title);
                 TextView addressTV = cardView.findViewById(R.id.tv_mural_marker_card_snippet);
-
                 titleTV.setText(marker.getTitle());
                 addressTV.setText(marker.getSnippet());
-
                 return cardView;
             }
         });
@@ -110,7 +108,8 @@ public class MapFragment extends Fragment {
                     Log.e("DEBUG", mural.toString());
                     Marker marker = myMap.addMarker(new MarkerOptions().position(mural.getCoordinates()));
                     marker.setTitle(mural.getCharacter());
-                    marker.setSnippet(mural.getArtist());
+                    LocationConverter myConverter = new LocationConverter();
+                    marker.setSnippet(myConverter.latLngToAddress(myContext, mural.getCoordinates()));
                     marker.setTag(mural);
                 }
             }

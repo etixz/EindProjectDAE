@@ -11,9 +11,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
+//author: DG
 public class LocationConverter{
-//    private Application mApplication;
-
 
     public LocationConverter() {
     }

@@ -1,19 +1,11 @@
 package dae.mob123.fragments;
 
-import android.annotation.SuppressLint;
-import android.app.ActionBar;
-import android.app.Activity;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -109,7 +101,7 @@ public class MapFragment extends Fragment {
                     Marker marker = myMap.addMarker(new MarkerOptions().position(mural.getCoordinates()));
                     marker.setTitle(mural.getCharacter());
                     LocationConverter myConverter = new LocationConverter();
-                    marker.setSnippet(myConverter.latLngToAddress(myContext, mural.getCoordinates()));
+                    marker.setSnippet(myConverter.convertCoordinatesToAddress(myContext, mural.getCoordinates()));
                     marker.setTag(mural);
                 }
             }

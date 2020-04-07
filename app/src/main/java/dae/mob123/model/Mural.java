@@ -14,7 +14,7 @@ public class Mural implements Serializable {
 
     @PrimaryKey
     @NonNull
-    private String artworkID;
+    private String muralID;
     private String artist, imageURL, character, year;
 
     //evt opsplitsen in 2 doubles
@@ -25,8 +25,8 @@ public class Mural implements Serializable {
     }
 
     @Ignore
-    public Mural(String artworkID, String artist, String imageURL, String character, String year, LatLng coordinates) {
-        this.artworkID = artworkID;
+    public Mural(String muralID, String artist, String imageURL, String character, String year, LatLng coordinates) {
+        this.muralID = muralID;
         this.artist = artist;
         this.imageURL = imageURL;
         this.character = character;
@@ -34,12 +34,12 @@ public class Mural implements Serializable {
         this.coordinates = coordinates;
     }
 
-    public String getArtworkID() {
-        return artworkID;
+    public String getMuralID() {
+        return muralID;
     }
 
-    public void setArtworkID(String artworkID) {
-        this.artworkID = artworkID;
+    public void setMuralID(String muralID) {
+        this.muralID = muralID;
     }
 
     public String getArtist() {

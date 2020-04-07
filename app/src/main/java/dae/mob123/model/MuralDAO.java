@@ -18,8 +18,8 @@ public interface MuralDAO {
     @Query("SELECT * FROM Mural ORDER BY artist")
     List<Mural> getAllMuralsOrderByArtist();
 
-    @Query("SELECT * FROM Mural WHERE artworkID LIKE:artworkID")
-    Mural findMuralByID(String artworkID);
+    @Query("SELECT * FROM Mural WHERE muralID LIKE:muralID")
+    Mural findMuralByID(String muralID);
 
     @Delete
     void deleteMural(Mural m);

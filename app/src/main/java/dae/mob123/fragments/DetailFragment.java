@@ -1,7 +1,5 @@
 package dae.mob123.fragments;
 
-import android.app.AppComponentFactory;
-import android.app.Application;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,7 +11,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 
 import com.squareup.picasso.Picasso;
 
@@ -48,7 +45,7 @@ public class DetailFragment extends Fragment {
             characterTV.setText(muralFromList.getCharacter());
             artistYearTV.setText("By " + muralFromList.getArtist() + ", ");
             LocationConverter myConverter = new LocationConverter();
-            streetAddressTV.setText(myConverter.latLngToAddress(appCompatActivity, muralFromList.getCoordinates()));
+            streetAddressTV.setText(myConverter.convertCoordinatesToAddress(appCompatActivity, muralFromList.getCoordinates()));
             Picasso.get().load("https://opendata.bruxelles.be/api/v2/catalog/datasets/comic-book-route/files/" + muralFromList.getImageURL()).into(imageIV);
         }
 

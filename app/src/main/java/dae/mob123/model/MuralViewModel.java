@@ -85,12 +85,10 @@ public class MuralViewModel extends AndroidViewModel {
                         String jsonID = jsonRecordsArray.getJSONObject(i).getString("recordid");
                         JSONObject jsonArtwork = jsonRecordsArray.getJSONObject(i).getJSONObject("fields");
 
-
-
                         final Mural currentMural = new Mural(
                                 jsonID,
                                 (jsonArtwork.has("auteur_s")) ? jsonArtwork.getString("auteur_s") : "Unknown Author",
-                                (jsonArtwork.has("filename")) ? jsonArtwork.getJSONObject("photo").getString("filename") : "No picture available!",
+                                (jsonArtwork.has("photo")) ? jsonArtwork.getJSONObject("photo").getString("id") : "No picture available!",
                                 (jsonArtwork.has("personnage_s")) ? jsonArtwork.getString("personnage_s") : "Unknown character",
                                 (jsonArtwork.has("annee")) ? jsonArtwork.getString("annee") : "Unknown year of creation",
                                 new LatLng(jsonArtwork.getJSONArray("coordonnees_geographiques").getDouble(0),

@@ -16,7 +16,6 @@ public class AboutFragment extends Fragment {
     public AboutFragment() {
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

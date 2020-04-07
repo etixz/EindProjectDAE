@@ -31,7 +31,9 @@ import dae.mob123.fragments.util.LocationConverter;
 import dae.mob123.model.Mural;
 import dae.mob123.model.MuralViewModel;
 
-
+/*
+Author: AB
+ */
 public class MapFragment extends Fragment {
 
     private MapView mapView;
@@ -60,7 +62,7 @@ public class MapFragment extends Fragment {
             myMap = googleMap;
 
             //kaart klaarmaken en centreren op een coördinaat.
-            CameraUpdate moveToBXL = CameraUpdateFactory.newLatLngZoom(COORD_BXL, 17);
+            CameraUpdate moveToBXL = CameraUpdateFactory.newLatLngZoom(COORD_BXL, 15);
             myMap.animateCamera(moveToBXL);
 
 //            myContext.setContentView(R.layout.custom_marker_layout);
@@ -73,7 +75,6 @@ public class MapFragment extends Fragment {
 
     private void setMarkerAdapter() {
         myMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
-
             @Override
             public View getInfoWindow(Marker marker) {
                 return null;

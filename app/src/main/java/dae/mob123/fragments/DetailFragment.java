@@ -46,7 +46,7 @@ public class DetailFragment extends Fragment {
             artistYearTV.setText("By " + muralFromList.getArtist() + ", ");
             LocationConverter myConverter = new LocationConverter();
             streetAddressTV.setText(myConverter.convertCoordinatesToAddress(appCompatActivity, muralFromList.getCoordinates()));
-            Picasso.get().load("https://opendata.bruxelles.be/api/v2/catalog/datasets/comic-book-route/files/" + muralFromList.getImageURL()).into(imageIV);
+            Picasso.get().load("https://opendata.bruxelles.be/api/v2/catalog/datasets/comic-book-route/files/" + muralFromList.getImageID()).into(imageIV);
         }
 
         return rootView;

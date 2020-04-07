@@ -8,27 +8,31 @@ import androidx.room.PrimaryKey;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.io.Serializable;
-
+/*
+Author: EB
+The Mural class represents a mural along the comic book route in Brussels.
+The class must implement the Serializable interface so instances may be put in a Bundle and transferred from one fragment or activity to another.
+*/
 @Entity
 public class Mural implements Serializable {
 
     @PrimaryKey
     @NonNull
     private String muralID;
-    private String artist, imageURL, character, year;
-
-    //evt opsplitsen in 2 doubles
+    private String artist, imageID, character, year;
     private LatLng coordinates;
-
 
     public Mural() {
     }
 
+    /*
+    This alternate constructor is used in MuralViewModel must be ignored by Room
+    */
     @Ignore
-    public Mural(String muralID, String artist, String imageURL, String character, String year, LatLng coordinates) {
+    public Mural(String muralID, String artist, String imageID, String character, String year, LatLng coordinates) {
         this.muralID = muralID;
         this.artist = artist;
-        this.imageURL = imageURL;
+        this.imageID = imageID;
         this.character = character;
         this.year = year;
         this.coordinates = coordinates;
@@ -50,12 +54,12 @@ public class Mural implements Serializable {
         this.artist = artist;
     }
 
-    public String getImageURL() {
-        return imageURL;
+    public String getImageID() {
+        return imageID;
     }
 
-    public void setImageURL(String imageURL) {
-        this.imageURL = imageURL;
+    public void setImageID(String imageID) {
+        this.imageID = imageID;
     }
 
     public String getCharacter() {

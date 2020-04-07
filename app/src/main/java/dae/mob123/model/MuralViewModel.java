@@ -83,7 +83,7 @@ public class MuralViewModel extends AndroidViewModel {
                         /*If object and nested objects contain the key:value pairs that correspond to the fields in Mural class, pass them as arguments in constructor of a new Murals instance.*/
                         final Mural currentMural = new Mural(
                                 jsonMuralID,
-                                (jsonMural.has("auteur_s")) ? jsonMural.getString("auteur_s") : "Unknown Author",
+                                (jsonMural.has("auteur_s")) ? jsonMural.getString("auteur_s") : "Unknown author",
                                 (jsonMural.has("photo")) ? jsonMural.getJSONObject("photo").getString("id") : "No picture available!",
                                 (jsonMural.has("personnage_s")) ? jsonMural.getString("personnage_s") : "Unknown character",
                                 (jsonMural.has("annee")) ? jsonMural.getString("annee") : "Unknown year of creation",
@@ -126,12 +126,12 @@ public class MuralViewModel extends AndroidViewModel {
     public void insertMural( Mural mural){
         MuralDatabase.getInstance(getApplication()).getRepoDao().insertMural(mural);
     }
-
-    public void updateMural(Mural mural){
-        MuralDatabase.getInstance(getApplication()).getRepoDao().updateMural(mural);
-    }
-
-    public void deleteMural(Mural mural){
-        MuralDatabase.getInstance(getApplication()).getRepoDao().deleteMural(mural);
-    }
+//
+//    public void updateMural(Mural mural){
+//        MuralDatabase.getInstance(getApplication()).getRepoDao().updateMural(mural);
+//    }
+//
+//    public void deleteMural(Mural mural){
+//        MuralDatabase.getInstance(getApplication()).getRepoDao().deleteMural(mural);
+//    }
 }

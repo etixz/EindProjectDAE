@@ -12,7 +12,7 @@ import java.util.Locale;
 
 /*
 Author: DG
-LocationConverter is used for Reverse Geocoding of coordinates to an address. Its use requires the Google Maps and Android Location libraries
+LocationConverter is used for reverse geocoding of coordinates to an address. Its use requires the Google Maps and Android Location libraries
 */
 public class LocationConverter{
 

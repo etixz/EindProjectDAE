@@ -2,13 +2,15 @@ package dae.mob123.model;
 
 
 import androidx.room.Dao;
-import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
-import androidx.room.Update;
 
 import java.util.List;
 
+/*
+Author: EB
+Data Access Object that uses the Room package to make queries to the local database
+*/
 @Dao
 public interface MuralDAO {
 
@@ -21,13 +23,14 @@ public interface MuralDAO {
     @Query("SELECT * FROM Mural WHERE muralID LIKE:muralID")
     Mural findMuralByID(String muralID);
 
-    @Delete
-    void deleteMural(Mural m);
-
-    //is insert functie wel nodig? gebruiker mag niet zomaar nieuwe muur toevoegen
     @Insert
     void insertMural(Mural m);
 
-    @Update
-    void updateMural(Mural m);
+// is het wel nodig om Stripuur te verwijderen of updaten?
+//    @Update
+//    void updateMural(Mural m);
+
+//    @Delete
+//    void deleteMural(Mural m);
+//
 }

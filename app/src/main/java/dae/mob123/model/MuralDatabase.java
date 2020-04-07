@@ -13,7 +13,9 @@ import java.util.concurrent.Executors;
 
 import dae.mob123.model.util.Converters;
 
-
+/*
+Author: EB
+*/
 @Database(entities = {Mural.class}, version = 1, exportSchema = false)
 @TypeConverters({Converters.class})
 public abstract class MuralDatabase extends RoomDatabase {

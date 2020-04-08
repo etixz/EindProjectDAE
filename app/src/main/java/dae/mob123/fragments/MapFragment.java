@@ -36,6 +36,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
+import java.io.Serializable;
 import java.util.List;
 
 import dae.mob123.R;
@@ -62,9 +63,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         @Override
         public void onInfoWindowClick(Marker marker) {
             Mural mural = (Mural) marker.getTag();
-            if (mural != null)
-                //TODO: Bundle aanmaken, serializable te steken en doorsturen met navigatie naar Detail
-                Navigation.findNavController(mapView).navigate(R.id.detail_fragment);
+            if (mural != null) {
+                Bundle data = new Bundle();
+                data.putSerializable("mural_to_detail", mural);
+                Navigation.findNavController(mapView).navigate(R.id.detail_fragment, data);
+            }
                 Toast.makeText(getActivity(), mural.getCharacter(), Toast.LENGTH_SHORT).show();
         }
     };

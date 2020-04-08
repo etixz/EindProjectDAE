@@ -18,6 +18,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -63,6 +64,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             Mural mural = (Mural) marker.getTag();
             if (mural != null)
                 //TODO: Bundle aanmaken, serializable te steken en doorsturen met navigatie naar Detail
+                Navigation.findNavController(mapView).navigate(R.id.detail_fragment);
                 Toast.makeText(getActivity(), mural.getCharacter(), Toast.LENGTH_SHORT).show();
         }
     };

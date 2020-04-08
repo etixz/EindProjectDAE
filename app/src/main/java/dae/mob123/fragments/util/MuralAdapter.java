@@ -24,7 +24,6 @@ public class MuralAdapter extends RecyclerView.Adapter<MuralAdapter.MuralViewHol
     //inner class
     class MuralViewHolder extends RecyclerView.ViewHolder{
         //verwijzingen naar componenten in cardview
-        private ConstraintLayout muralCardLayout;
         private TextView artistYearMuralTV;
         private TextView characterMuralTV;
         private TextView addressMuralTV;
@@ -39,11 +38,10 @@ public class MuralAdapter extends RecyclerView.Adapter<MuralAdapter.MuralViewHol
         };
         public MuralViewHolder(@NonNull View cardView) {
             super(cardView);
-            muralCardLayout = cardView.findViewById(R.id.card_layout);
             artistYearMuralTV = cardView.findViewById(R.id.tv_card_mural_artistyear);
             characterMuralTV = cardView.findViewById(R.id.tv_card_mural_character);
             addressMuralTV = cardView.findViewById(R.id.tv_card_mural_address);
-            muralCardLayout.setOnClickListener(detailListener);
+            cardView.setOnClickListener(detailListener);
         }
     }
 

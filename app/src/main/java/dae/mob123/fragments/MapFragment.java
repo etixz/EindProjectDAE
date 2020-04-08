@@ -36,7 +36,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
-import java.io.Serializable;
 import java.util.List;
 
 import dae.mob123.R;
@@ -85,6 +84,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         myMap.setOnInfoWindowClickListener(detailListener);
         setMarkerAdapter();
         drawMuralMarkers();
+        drawUserLocationMarker();
     }
 
     @Override
@@ -99,10 +99,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         View rootView = inflater.inflate(R.layout.fragment_map, container, false);
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(myContext);
-        if (ActivityCompat.checkSelfPermission(myContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(myContext, new String[]
-                    {Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE);
-        }
 
         mapView = rootView.findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
@@ -123,8 +119,14 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         }
     }
 
-    //method causes nullpointer exception
-    private void drawUserLocationMarker() {
+
+
+    private void fetchLastlocation() {
+        if (ActivityCompat.checkSelfPermission(myContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(myContext, new String[]
+                    {Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE);
+        }
+
         Task<Location> locationTask = fusedLocationProviderClient.getLastLocation();
         locationTask.addOnSuccessListener(new OnSuccessListener<Location>() {
             @Override
@@ -180,7 +182,27 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         });
     }
 
-
+    //method causes nullpointer exception
+    private void drawUserLocationMarker() {
+        if (ActivityCompat.checkSelfPermission(myContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(myContext, new String[]
+                    {Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE);
+        }
+        Task<Location> locationTask = fusedLocationProviderClient.getLastLocation();
+        locationTask.addOnSuccessListener(new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+                if (location != null) {
+                    currentLocation = location;
+                    currentLocationCoordinates = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+                    LatLng userLocation = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+                    MarkerOptions markerOptions = new MarkerOptions().position(userLocation)
+                            .title("I am here");
+                    myMap.addMarker(markerOptions);
+                }
+            }
+        });
+    }
 
     @Override
     public void onResume() {

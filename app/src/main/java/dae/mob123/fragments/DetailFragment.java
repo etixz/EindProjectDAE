@@ -43,7 +43,7 @@ public class DetailFragment extends Fragment {
         if (dataPassed()){
             muralFromList = (Mural) dataFromList.getSerializable("mural_to_detail");
             characterTV.setText(muralFromList.getCharacter());
-            artistYearTV.setText("By " + muralFromList.getArtist() + ", ");
+            artistYearTV.setText("By " + muralFromList.getArtist() + ", " + muralFromList.getYear());
             LocationConverter myConverter = new LocationConverter();
             streetAddressTV.setText(myConverter.convertCoordinatesToAddress(appCompatActivity, muralFromList.getCoordinates()));
             Picasso.get().load("https://opendata.bruxelles.be/api/v2/catalog/datasets/comic-book-route/files/" + muralFromList.getImageID()).into(imageIV);

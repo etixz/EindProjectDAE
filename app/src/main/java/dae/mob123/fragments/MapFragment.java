@@ -1,6 +1,9 @@
 package dae.mob123.fragments;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,20 +13,27 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.LocationSource;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 
 import java.util.List;
 
@@ -35,13 +45,17 @@ import dae.mob123.model.MuralViewModel;
 /*
 Author: AB
  */
-public class MapFragment extends Fragment {
+public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     private MapView mapView;
     private GoogleMap myMap;
     private FragmentActivity myContext;
     private final LatLng COORD_BXL = new LatLng(50.8503463, 4.3517211);
 //    private Marker customMarker;
+    Location currentLocation;
+    LatLng currentLocationCoordinates;
+    FusedLocationProviderClient fusedLocationProviderClient;
+    private static final int REQUEST_CODE = 101;
 
     private GoogleMap.OnInfoWindowClickListener detailListener = new GoogleMap.OnInfoWindowClickListener() {
         @Override
@@ -53,27 +67,73 @@ public class MapFragment extends Fragment {
         }
     };
 
-
     public MapFragment() {
     }
 
-    private OnMapReadyCallback onMapReady = new OnMapReadyCallback() {
-        @Override
-        public void onMapReady(GoogleMap googleMap) {
-            //field maken om de googlemap instantie in andere methoden te krijgen
-            myMap = googleMap;
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        myMap = googleMap;
 
-            //kaart klaarmaken en centreren op een coördinaat.
-            CameraUpdate moveToBXL = CameraUpdateFactory.newLatLngZoom(COORD_BXL, 15);
-            myMap.animateCamera(moveToBXL);
+        CameraUpdate moveToBXL = CameraUpdateFactory.newLatLngZoom(COORD_BXL, 15);
+        myMap.animateCamera(moveToBXL);
+        //myContext.setContentView(R.layout.custom_marker_layout);
+        myMap.setOnInfoWindowClickListener(detailListener);
+        setMarkerAdapter();
+        drawMuralMarkers();
+        drawUserLocationMarker();
+    }
 
-//            myContext.setContentView(R.layout.custom_marker_layout);
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        myContext = (FragmentActivity) context;
+    }
 
-            myMap.setOnInfoWindowClickListener(detailListener);
-            setMarkerAdapter();
-            drawMarkers();
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_map, container, false);
+
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(myContext);
+        fetchLastlocation();
+
+        mapView = rootView.findViewById(R.id.mapView);
+        mapView.onCreate(savedInstanceState);
+        mapView.getMapAsync(this);
+
+        return rootView;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode){
+            case REQUEST_CODE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                    fetchLastlocation();
+                }
+                break;
         }
-    };
+    }
+
+
+
+    private void fetchLastlocation() {
+        if (ActivityCompat.checkSelfPermission(myContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(myContext, new String[]
+                    {Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE);
+        }
+
+        Task<Location> locationTask = fusedLocationProviderClient.getLastLocation();
+        locationTask.addOnSuccessListener(new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+                 if (location != null) {
+                     currentLocation = location;
+                     currentLocationCoordinates = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+                 }
+            }
+        });
+    }
 
     private void setMarkerAdapter() {
         myMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
@@ -84,7 +144,7 @@ public class MapFragment extends Fragment {
 
             @Override
             public View getInfoContents(Marker marker) {
-                View cardView = getActivity().getLayoutInflater().inflate(R.layout.mural_marker, null, false);
+                View cardView = getActivity().getLayoutInflater().inflate(R.layout.mural_marker_card, null, false);
                 TextView titleTV = cardView.findViewById(R.id.tv_mural_marker_card_title);
                 TextView addressTV = cardView.findViewById(R.id.tv_mural_marker_card_snippet);
                 titleTV.setText(marker.getTitle());
@@ -94,8 +154,7 @@ public class MapFragment extends Fragment {
         });
     }
 
-    private void drawMarkers() {
-
+    private void drawMuralMarkers() {
         MuralViewModel muralViewModel = new ViewModelProvider(myContext).get(MuralViewModel.class);
         muralViewModel.getMurals().observe(myContext, new Observer<List<Mural>>() {
             @Override
@@ -114,9 +173,57 @@ public class MapFragment extends Fragment {
         });
     }
 
+    //method causes nullpointer exception
+    private void drawUserLocationMarker() {
+        if (ActivityCompat.checkSelfPermission(myContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(myContext, new String[]
+                    {Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE);
+        }
+        Task<Location> locationTask = fusedLocationProviderClient.getLastLocation();
+        locationTask.addOnSuccessListener(new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+                if (location != null) {
+                    currentLocation = location;
+                    currentLocationCoordinates = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+                    LatLng userLocation = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+                    MarkerOptions markerOptions = new MarkerOptions().position(userLocation)
+                            .title("I am here");
+                    myMap.addMarker(markerOptions);
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mapView.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mapView.onPause();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mapView.onDestroy();
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        mapView.onLowMemory();
+    }
+}
+
+
 //    private void drawMarkers() {
 //
-//        View marker = getActivity().getLayoutInflater().inflate(R.layout.mural_marker, null);
+//        View marker = getActivity().getLayoutInflater().inflate(R.layout.mural_marker_card, null);
 //        customMarker = myMap.addMarker(new MarkerOptions()
 //                .icon(BitmapDescriptorFactory.fromBitmap(createDrawableFromView(myContext, marker))));
 //
@@ -154,64 +261,20 @@ public class MapFragment extends Fragment {
 //    }
 
 
-    // omzetten van een view in een bitmap
-   // public static Bitmap createDrawableFromView(Context mycontext, View mapView) {
-     //   DisplayMetrics displayMetrics = new DisplayMetrics();
-       // ((Activity) mycontext).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        //mapView.setLayoutParams(new ActionBar.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT));
-        //mapView.measure(displayMetrics.widthPixels, displayMetrics.heightPixels);
-        //mapView.layout(0, 0, displayMetrics.widthPixels, displayMetrics.heightPixels);
-        //mapView.buildDrawingCache();
-        //Bitmap bitmap = Bitmap.createBitmap(mapView.getMeasuredWidth(), mapView.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
+// omzetten van een view in een bitmap
+// public static Bitmap createDrawableFromView(Context mycontext, View mapView) {
+//   DisplayMetrics displayMetrics = new DisplayMetrics();
+// ((Activity) mycontext).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+//mapView.setLayoutParams(new ActionBar.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT));
+//mapView.measure(displayMetrics.widthPixels, displayMetrics.heightPixels);
+//mapView.layout(0, 0, displayMetrics.widthPixels, displayMetrics.heightPixels);
+//mapView.buildDrawingCache();
+//Bitmap bitmap = Bitmap.createBitmap(mapView.getMeasuredWidth(), mapView.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
 
-        //Canvas canvas = new Canvas(bitmap);
-        //mapView.draw(canvas);
+//Canvas canvas = new Canvas(bitmap);
+//mapView.draw(canvas);
 
-        //return bitmap;
-    //}
-
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        myContext = (FragmentActivity)context;
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_map, container, false);
-        mapView = rootView.findViewById(R.id.mapView);
-        mapView.onCreate(savedInstanceState);
-        mapView.getMapAsync(onMapReady);
-
-        return rootView;
-    }
-
-        @Override
-        public void onResume() {
-            super.onResume();
-            mapView.onResume();
-        }
-
-        @Override
-        public void onPause() {
-            super.onPause();
-            mapView.onPause();
-        }
-
-        @Override
-        public void onDestroy() {
-            super.onDestroy();
-            mapView.onDestroy();
-        }
-
-        @Override
-        public void onLowMemory() {
-            super.onLowMemory();
-            mapView.onLowMemory();
-        }
-
-    }
-
+//return bitmap;
+//}
 
 

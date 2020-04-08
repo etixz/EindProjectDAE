@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     signingConfigs {
         alpha_build {
-            storeFile file('..\\..\\..\\Eindproject_Android\\dae_key_store.jks')
+            storeFile file('..\\..\\Eindproject_Android\\dae_key_store.jks')
             storePassword 'Mobapp123'
             keyAlias = 'dae_key'
             keyPassword 'MobappDAE'
@@ -32,11 +32,11 @@ android {
             signingConfig signingConfigs.alpha_build
         }
     }
+
     compileOptions {
         sourceCompatibility = 1.8
         targetCompatibility = 1.8
     }
-
 
 }
 
@@ -57,6 +57,8 @@ dependencies {
     implementation 'androidx.room:room-runtime:2.2.4'
     annotationProcessor 'androidx.room:room-compiler:2.2.4'
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    implementation 'com.google.android.material:material:1.0.0'
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation("com.squareup.okhttp3:okhttp:4.4.0")
+
 }

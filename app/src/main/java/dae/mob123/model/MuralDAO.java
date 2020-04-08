@@ -1,6 +1,8 @@
 package dae.mob123.model;
 
 
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
@@ -15,7 +17,7 @@ Data Access Object that uses the Room package to make queries to the local datab
 public interface MuralDAO {
 
     @Query("SELECT * FROM Mural ORDER BY character")
-    List<Mural> getAllMurals();
+    LiveData<List<Mural>> getAllMurals();
 
     @Query("SELECT * FROM Mural ORDER BY artist")
     List<Mural> getAllMuralsOrderByArtist();

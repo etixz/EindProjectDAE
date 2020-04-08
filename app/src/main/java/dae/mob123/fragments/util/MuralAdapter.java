@@ -43,7 +43,7 @@ public class MuralAdapter extends RecyclerView.Adapter<MuralAdapter.MuralViewHol
             artistYearMuralTV = cardView.findViewById(R.id.tv_card_mural_artistyear);
             characterMuralTV = cardView.findViewById(R.id.tv_card_mural_character);
             addressMuralTV = cardView.findViewById(R.id.tv_card_mural_address);
-            muralCardLayout.setOnClickListener(detailListener);
+            cardView.setOnClickListener(detailListener);
         }
     }
 

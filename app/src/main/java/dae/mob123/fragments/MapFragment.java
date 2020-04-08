@@ -36,7 +36,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
-import java.io.Serializable;
 import java.util.List;
 
 import dae.mob123.R;
@@ -53,10 +52,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private GoogleMap myMap;
     private FragmentActivity myContext;
     private final LatLng COORD_BXL = new LatLng(50.8503463, 4.3517211);
-    private Marker customMarker;
-    private Location currentLocation;
-    private LatLng currentLocationCoordinates;
-    private FusedLocationProviderClient fusedLocationProviderClient;
+//    private Marker customMarker;
+    Location currentLocation;
+    LatLng currentLocationCoordinates;
+    FusedLocationProviderClient fusedLocationProviderClient;
     private static final int REQUEST_CODE = 101;
 
     private GoogleMap.OnInfoWindowClickListener detailListener = new GoogleMap.OnInfoWindowClickListener() {
@@ -64,11 +63,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         public void onInfoWindowClick(Marker marker) {
             Mural mural = (Mural) marker.getTag();
             if (mural != null) {
+                //TODO: Bundle aanmaken, serializable te steken en doorsturen met navigatie naar Detail
                 Bundle data = new Bundle();
-                data.putSerializable("mural_to_detail", mural);
+                data.putSerializable("mural_to_detail",mural);
                 Navigation.findNavController(mapView).navigate(R.id.detail_fragment, data);
-            }
                 Toast.makeText(getActivity(), mural.getCharacter(), Toast.LENGTH_SHORT).show();
+            }
+
         }
     };
 
@@ -85,6 +86,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         myMap.setOnInfoWindowClickListener(detailListener);
         setMarkerAdapter();
         drawMuralMarkers();
+        drawUserLocationMarker();
     }
 
     @Override
@@ -99,10 +101,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         View rootView = inflater.inflate(R.layout.fragment_map, container, false);
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(myContext);
-        if (ActivityCompat.checkSelfPermission(myContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(myContext, new String[]
-                    {Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE);
-        }
+        fetchLastlocation();
 
         mapView = rootView.findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
@@ -116,31 +115,31 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         switch (requestCode){
             case REQUEST_CODE:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                    drawUserLocationMarker();
-                    myMap.setMyLocationEnabled(true);
+                    fetchLastlocation();
                 }
                 break;
         }
     }
 
-    //method causes nullpointer exception
-    private void drawUserLocationMarker() {
+
+
+    private void fetchLastlocation() {
+        if (ActivityCompat.checkSelfPermission(myContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(myContext, new String[]
+                    {Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE);
+        }
+
         Task<Location> locationTask = fusedLocationProviderClient.getLastLocation();
         locationTask.addOnSuccessListener(new OnSuccessListener<Location>() {
             @Override
             public void onSuccess(Location location) {
-                if (location != null) {
-                    currentLocation = location;
-                    currentLocationCoordinates = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-                    LatLng userLocation = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-                    MarkerOptions markerOptions = new MarkerOptions().position(userLocation)
-                            .title("I am here");
-                    myMap.addMarker(markerOptions);
-                }
+                 if (location != null) {
+                     currentLocation = location;
+                     currentLocationCoordinates = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+                 }
             }
         });
     }
-
 
     private void setMarkerAdapter() {
         myMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
@@ -180,7 +179,27 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         });
     }
 
-
+    //method causes nullpointer exception
+    private void drawUserLocationMarker() {
+        if (ActivityCompat.checkSelfPermission(myContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(myContext, new String[]
+                    {Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE);
+        }
+        Task<Location> locationTask = fusedLocationProviderClient.getLastLocation();
+        locationTask.addOnSuccessListener(new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+                if (location != null) {
+                    currentLocation = location;
+                    currentLocationCoordinates = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+                    LatLng userLocation = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+                    MarkerOptions markerOptions = new MarkerOptions().position(userLocation)
+                            .title("I am here");
+                    myMap.addMarker(markerOptions);
+                }
+            }
+        });
+    }
 
     @Override
     public void onResume() {

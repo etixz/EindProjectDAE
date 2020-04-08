@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     signingConfigs {
         alpha_build {
-            storeFile file('..\\..\\..\\Eindproject_Android\\dae_key_store.jks')
+            storeFile file('C:\\Users\\Gebruiker\\StudioProjects\\dae_key_store.jks')
             storePassword 'Mobapp123'
             keyAlias = 'dae_key'
             keyPassword 'MobappDAE'
@@ -13,7 +13,6 @@ android {
     buildToolsVersion "29.0.3"
 
     defaultConfig {
-        applicationId "dae.mob123"
         minSdkVersion 15
         targetSdkVersion 29
         versionCode 1

@@ -14,7 +14,7 @@ Data Access Object that uses the Room package to make queries to the local datab
 @Dao
 public interface MuralDAO {
 
-    @Query("SELECT * FROM Mural ORDER BY character")
+    @Query("SELECT * FROM Mural ORDER BY characterTitle")
     List<Mural> getAllMurals();
 
     @Query("SELECT * FROM Mural ORDER BY artist")

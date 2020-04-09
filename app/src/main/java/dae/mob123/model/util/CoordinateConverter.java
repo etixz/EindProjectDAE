@@ -7,7 +7,7 @@ import com.google.android.gms.maps.model.LatLng;
 Auth: EB
 LatLng type must be converted to String in order to make queries to the Room database
 */
-public class Converters {
+public class CoordinateConverter {
 
     @TypeConverter
     public static LatLng convertStringToLatLng(String latlngString) {

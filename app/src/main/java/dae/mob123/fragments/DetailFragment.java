@@ -42,11 +42,14 @@ public class DetailFragment extends Fragment {
 
         if (dataPassed()){
             muralFromList = (Mural) dataFromList.getSerializable("mural_to_detail");
-            characterTV.setText(muralFromList.getCharacter());
-            artistYearTV.setText("By " + muralFromList.getArtist() + ", " + muralFromList.getYear());
+            characterTV.setText(muralFromList.getCharacterTitle());
+            artistYearTV.setText(muralFromList.getArtist() + ", " + muralFromList.getYear());
             LocationConverter myConverter = new LocationConverter();
             streetAddressTV.setText(myConverter.convertCoordinatesToAddress(appCompatActivity, muralFromList.getCoordinates()));
-            Picasso.get().load("https://opendata.bruxelles.be/api/v2/catalog/datasets/comic-book-route/files/" + muralFromList.getImageID()).into(imageIV);
+            switch (muralFromList.getMuralType()) {
+                case COMIC_BOOK: Picasso.get().load("https://opendata.bruxelles.be/api/v2/catalog/datasets/comic-book-route/files/" + muralFromList.getImageID()).into(imageIV);
+                case STREET_ART: Picasso.get().load("https://opendata.brussel.be/api/v2/catalog/datasets/street-art/files/" + muralFromList.getImageID()).into(imageIV);
+            };
         }
 
         return rootView;

@@ -25,10 +25,8 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.LocationSource;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -67,7 +65,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 data.putSerializable("mural_to_detail", mural);
                 Navigation.findNavController(mapView).navigate(R.id.detail_fragment, data);
             }
-                Toast.makeText(getActivity(), mural.getCharacter(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), mural.getCharacterTitle(), Toast.LENGTH_SHORT).show();
         }
     };
 
@@ -173,7 +171,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                     Marker marker = myMap.addMarker(new MarkerOptions()
                             .position(mural.getCoordinates())
                             .icon(BitmapDescriptorFactory.fromResource(R.drawable.custom_marker)));
-                    marker.setTitle(mural.getCharacter());
+                    marker.setTitle(mural.getCharacterTitle());
                     LocationConverter myConverter = new LocationConverter();
                     marker.setSnippet(myConverter.convertCoordinatesToAddress(myContext, mural.getCoordinates()));
                     marker.setTag(mural);

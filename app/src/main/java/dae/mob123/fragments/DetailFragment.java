@@ -70,14 +70,11 @@ public class DetailFragment extends Fragment {
             private Marker marker;
             @Override
             public void onClick(View view) {
-                Mural mural = (Mural) marker.getTag();
-                if (mural != null) {
                     Bundle data = new Bundle();
-                    data.putSerializable("detail_to_map", mural);
-                    mural.getCoordinates();
+                    data.putSerializable("detail_to_map", "mural_to_map");
                     Navigation.findNavController(view).navigate(R.id.action_detail_fragment_to_map_fragment, data);
                 }
-            }
+
         });
 
         return rootView;

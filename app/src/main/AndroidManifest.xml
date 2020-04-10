@@ -17,10 +17,10 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <meta-data android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCbqIu4_8D21F4XI4X_O3uH8gPSYVzuK4A">
         </meta-data>

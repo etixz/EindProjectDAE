@@ -8,6 +8,9 @@ import androidx.room.PrimaryKey;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.io.Serializable;
+
+import dae.mob123.model.util.MuralType;
+
 /*
 Author: EB
 The Mural class represents a mural along the comic book route in Brussels.
@@ -19,21 +22,23 @@ public class Mural implements Serializable {
     @PrimaryKey
     @NonNull
     private String muralID;
-    private String artist, imageID, character, year;
+    private String artist, imageID, characterTitle, year;
+    private MuralType muralType;
     private LatLng coordinates;
 
     public Mural() {
     }
 
     /*
-    This alternate constructor is used in MuralViewModel must be ignored by Room
+    Alternate constructor used in MuralViewModel, must be ignored by Room
     */
     @Ignore
-    public Mural(String muralID, String artist, String imageID, String character, String year, LatLng coordinates) {
+    public Mural(MuralType muralType, String muralID, String artist, String imageID, String characterTitle, String year, LatLng coordinates) {
+        this.muralType = muralType;
         this.muralID = muralID;
         this.artist = artist;
         this.imageID = imageID;
-        this.character = character;
+        this.characterTitle = characterTitle;
         this.year = year;
         this.coordinates = coordinates;
     }
@@ -44,6 +49,14 @@ public class Mural implements Serializable {
 
     public void setMuralID(String muralID) {
         this.muralID = muralID;
+    }
+
+    public MuralType getMuralType() {
+        return muralType;
+    }
+
+    public void setMuralType(MuralType muralType) {
+        this.muralType = muralType;
     }
 
     public String getArtist() {
@@ -62,12 +75,12 @@ public class Mural implements Serializable {
         this.imageID = imageID;
     }
 
-    public String getCharacter() {
-        return character;
+    public String getCharacterTitle() {
+        return characterTitle;
     }
 
-    public void setCharacter(String character) {
-        this.character = character;
+    public void setCharacterTitle(String characterTitle) {
+        this.characterTitle = characterTitle;
     }
 
     public String getYear() {

@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,9 +23,8 @@ public class MuralAdapter extends RecyclerView.Adapter<MuralAdapter.MuralViewHol
     //inner class
     class MuralViewHolder extends RecyclerView.ViewHolder{
         //verwijzingen naar componenten in cardview
-        private ConstraintLayout muralCardLayout;
         private TextView artistYearMuralTV;
-        private TextView characterMuralTV;
+        private TextView characterTitleMuralTV;
         private TextView addressMuralTV;
         private final View.OnClickListener detailListener = new View.OnClickListener() {
             @Override
@@ -39,9 +37,8 @@ public class MuralAdapter extends RecyclerView.Adapter<MuralAdapter.MuralViewHol
         };
         public MuralViewHolder(@NonNull View cardView) {
             super(cardView);
-            muralCardLayout = cardView.findViewById(R.id.card_layout);
             artistYearMuralTV = cardView.findViewById(R.id.tv_card_mural_artistyear);
-            characterMuralTV = cardView.findViewById(R.id.tv_card_mural_character);
+            characterTitleMuralTV = cardView.findViewById(R.id.tv_card_mural_character);
             addressMuralTV = cardView.findViewById(R.id.tv_card_mural_address);
             cardView.setOnClickListener(detailListener);
         }
@@ -68,8 +65,8 @@ public class MuralAdapter extends RecyclerView.Adapter<MuralAdapter.MuralViewHol
     @Override
     public void onBindViewHolder(@NonNull MuralViewHolder cardHolder, int position) {
         Mural currentMural = items.get(position);
-        cardHolder.characterMuralTV.setText(currentMural.getCharacter().toUpperCase());
-        cardHolder.artistYearMuralTV.setText("By " + currentMural.getArtist() + ", " + currentMural.getYear());
+        cardHolder.characterTitleMuralTV.setText(currentMural.getCharacterTitle().toUpperCase());
+        cardHolder.artistYearMuralTV.setText(currentMural.getArtist() + ", " + currentMural.getYear());
         mConverter = new LocationConverter();
         cardHolder.addressMuralTV.setText(mConverter.convertCoordinatesToAddress(mApplication, currentMural.getCoordinates()));
     }

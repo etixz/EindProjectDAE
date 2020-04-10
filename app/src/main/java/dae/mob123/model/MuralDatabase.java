@@ -5,20 +5,20 @@ import android.content.Context;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
-import androidx.room.TypeConverter;
 import androidx.room.TypeConverters;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import dae.mob123.model.util.Converters;
+import dae.mob123.model.util.CoordinateConverter;
+import dae.mob123.model.util.MuralTypeConverter;
 
 /*
 Author: EB
 Class is made abstract so that override methods mustn't be added manually
 */
 @Database(entities = {Mural.class}, version = 1, exportSchema = false)
-@TypeConverters({Converters.class})
+@TypeConverters({CoordinateConverter.class, MuralTypeConverter.class})
 public abstract class MuralDatabase extends RoomDatabase {
 
     /*Singleton: one static intance so there is only one connection to the database*/

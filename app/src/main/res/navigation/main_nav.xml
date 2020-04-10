@@ -51,6 +51,9 @@
         <argument
             android:name="mural_to_detail"
             app:argType="dae.mob123.model.Mural" />
+        <action
+            android:id="@+id/action_detail_fragment_to_map_fragment"
+            app:destination="@id/map_fragment" />
     </fragment>
     <fragment
         android:id="@+id/route_fragment"

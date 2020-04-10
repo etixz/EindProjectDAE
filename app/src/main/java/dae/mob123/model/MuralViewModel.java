@@ -49,7 +49,9 @@ public class MuralViewModel extends AndroidViewModel {
 
     /*Method to get a list with all the Murals as Live Data*/
     public MutableLiveData<List<Mural>> getMurals(){
-        fetchAllMurals();
+        if(murals.getValue() == null) {
+            fetchAllMurals();
+        }
         return murals;
     }
 

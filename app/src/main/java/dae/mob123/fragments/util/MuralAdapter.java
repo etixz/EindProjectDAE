@@ -27,7 +27,6 @@ public class MuralAdapter extends RecyclerView.Adapter<MuralAdapter.MuralViewHol
 
     //inner class
     class MuralViewHolder extends RecyclerView.ViewHolder{
-        //verwijzingen naar componenten in cardview
         private TextView artistYearMuralTV;
         private TextView characterTitleMuralTV;
         private TextView addressMuralTV;
@@ -95,6 +94,7 @@ public class MuralAdapter extends RecyclerView.Adapter<MuralAdapter.MuralViewHol
         return new Filter() {
             @Override
             protected FilterResults performFiltering(CharSequence constraint) {
+                /*user input and matching data must be case insensitive and use Normalizer to ignore accented characters*/
                 String input = Normalizer.normalize(constraint, NFD).toLowerCase();
                 if (input.isEmpty()) {
                     filteredItems = allItems;

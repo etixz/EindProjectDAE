@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -29,7 +30,7 @@ public class ListFragment extends Fragment {
 
     private AppCompatActivity mContext;
     private MuralAdapter muralAdapter;
-    private androidx.appcompat.widget.SearchView.OnQueryTextListener searchListener = new androidx.appcompat.widget.SearchView.OnQueryTextListener() {
+    private SearchView.OnQueryTextListener searchListener = new SearchView.OnQueryTextListener() {
         @Override
         public boolean onQueryTextSubmit(String query) {
             return false;
@@ -79,7 +80,7 @@ public class ListFragment extends Fragment {
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         inflater.inflate(R.menu.search_menu, menu);
 
-        androidx.appcompat.widget.SearchView searchView = (androidx.appcompat.widget.SearchView) menu.findItem(R.id.app_bar_search).getActionView();
+        SearchView searchView = (SearchView) menu.findItem(R.id.app_bar_search).getActionView();
 
         searchView.setOnQueryTextListener(searchListener);
 

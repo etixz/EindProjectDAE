@@ -3,4 +3,10 @@
     <string name="app_name">EindprojectDAE</string>
     <string name="str_tv_about_content">La genèse du Parcours BD remonte au début des années 90. La Ville de Bruxelles a mené une lutte ferme contre les grandes affiches publicitaires enlaidissant le centre-ville. Ces affiches, une fois retirées, donnaient à voir des façades délabrées qu’il fallait restaurer. C’est dans ce contexte qu’a été réalisée la première fresque BD. Il s’agit du personnage Broussaille du Bruxellois Frank Pé dans le quartier Plattesteen. L’initiative était belle : croiser l’art et la rénovation urbaine, et a permis de consacrer dans un premier temps quelques auteurs bruxellois sur les murs de la capitale. Au fil des années, le Parcours s’est développé, des auteurs non-bruxellois mais belges ont collaboré… Et puis, des auteurs étrangers – Hugo Pratt, Zep, Dupuy-Berberian, Uderzo, Mezzo, pour ne citer qu’eux – s’inscrivant dans le vaste héritage de la bande dessinée franco-belge.  De Tintin à Spirou en passant par Corto Maltese, Lucky Luke, Yoko Tsuno, Natacha, Astérix… Ce sont aujourd’hui quelques soixantaine de personnages que vous pourrez admirer au détour d’une promenade qui vous fera sortir des sentiers touristiques et découvrir les petites rues authentiques et pleine de charme de Bruxelles.  Afin de refléter plus justement le monde de la bande dessinée actuelle, le Parcours BD se modernise, mettant également à l’honneur la bande dessinée d’auteur avec des artistes comme Nix, Dominique Goblet, Brecht Evens.</string>
     <string name="str_tv_about_title">Histoire du parcours BD</string>
+    <string name="str_app_bar_search">Cherchez</string>
+    <string name="str_settings">Préférences</string>
+    <string name="str_lp_pref_sort">Options de tri</string>
+    <string name="str_btn_home_routes">Trajets proposés</string>
+    <string name="str_btn_home_list">Liste des freques</string>
+    <string name="str_btn_home_map">Carte des freques</string>
 </resources>

@@ -1,6 +1,7 @@
 package dae.mob123.model;
 
 import android.app.Application;
+import android.content.SharedPreferences;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -8,6 +9,7 @@ import androidx.lifecycle.AndroidViewModel;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.preference.PreferenceManager;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -21,6 +23,7 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import dae.mob123.R;
 import dae.mob123.model.util.MuralType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -50,7 +53,18 @@ public class MuralViewModel extends AndroidViewModel {
         if(database.getRepoDao().getAllMurals().getValue() == null) {
             fetchAllMurals();
         }
-        return database.getRepoDao().getAllMurals();
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mApplication);
+        LiveData<List<Mural>> murals = database.getRepoDao().getAllMurals();
+        String sortBy = settings.getString("lp_pref_sort", String.valueOf(R.string.str_pref_sort_name));
+        switch (sortBy) {
+            case "Sorteer op personagenaam/titel" : murals = database.getRepoDao().getAllMurals();
+            //case R.string.str_pref_sort_name : murals = database.getRepoDao().getAllMurals();
+            break;
+            //case R.string.str_pref_sort_artist : murals = database.getRepoDao().getAllMuralsOrderByArtist();
+            case "Sorteer op auteurs- of artiestennaam" : murals = database.getRepoDao().getAllMuralsOrderByArtist();
+            break;
+        }
+        return murals;
     }
 
     /*Consume the restAPI and deserialise data from JSON objects to Java objects by running in a thread in the background*/

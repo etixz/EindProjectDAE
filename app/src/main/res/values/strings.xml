@@ -8,8 +8,7 @@
     <string name="str_btn_home_map">Kaart met stripmuren</string>
     <string name="str_btn_home_routes">Voorgestelde routes</string>
     <string name="str_lp_pref_sort">Sorteeropties</string>
-    <string name="str_pref_sort_name">Sorteer op personagenaam/titel</string>
-    <string name="str_pref_sort_artist">Sorteer op auteurs- of artiestennaam</string>
+    <string name="str_pref_sort_artist">Sorteer op artiestennaam</string>
 <!--    <string name="str_pref_sort_street">Sorteer op straatnaam</string>-->
     <string name="str_settings">Voorkeuren</string>
     <string name="str_app_bar_search">Zoeken</string>
@@ -18,4 +17,5 @@
         <item>@string/str_pref_sort_artist</item>
 <!--        <item>@string/str_pref_sort_street</item>-->
     </string-array>
+    <string name="str_pref_sort_name">Sorteer op personagenaam/titel</string>
 </resources>

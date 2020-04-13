@@ -5,12 +5,10 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
@@ -57,9 +55,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private static final int REQUEST_CODE = 101;
     private Bundle dataFromDetail;
 
-
-
-    private GoogleMap.OnInfoWindowClickListener detailListener = new GoogleMap.OnInfoWindowClickListener() {
+    private GoogleMap.OnInfoWindowClickListener infoWindowListener = new GoogleMap.OnInfoWindowClickListener() {
         @Override
         public void onInfoWindowClick(Marker marker) {
             Mural mural = (Mural) marker.getTag();
@@ -77,18 +73,17 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap googleMap) {
         myMap = googleMap;
-
-        CameraUpdate moveToBXL = CameraUpdateFactory.newLatLngZoom(COORD_BXL, 15);
         Mural muralFromMap = (Mural) dataFromDetail.getSerializable("mural_to_map");
 
         if (muralFromMap == null) {
-                       myMap.animateCamera(moveToBXL);
+            CameraUpdate moveToBXL = CameraUpdateFactory.newLatLngZoom(COORD_BXL, 15);
+            myMap.animateCamera(moveToBXL);
         } else {
             CameraUpdate moveToMural = CameraUpdateFactory.newLatLngZoom(muralFromMap.getCoordinates(), 19);
             myMap.animateCamera((moveToMural));
         }
         //myContext.setContentView(R.layout.custom_marker_layout);
-        myMap.setOnInfoWindowClickListener(detailListener);
+        myMap.setOnInfoWindowClickListener(infoWindowListener);
         setMarkerAdapter();
         drawMuralMarkers();
         drawUserLocationMarker();

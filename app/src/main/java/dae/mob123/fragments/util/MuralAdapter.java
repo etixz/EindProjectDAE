@@ -6,19 +6,24 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
 
 import dae.mob123.R;
 import dae.mob123.model.Mural;
 
-public class MuralAdapter extends RecyclerView.Adapter<MuralAdapter.MuralViewHolder> {
+import static java.text.Normalizer.Form.NFD;
+
+public class MuralAdapter extends RecyclerView.Adapter<MuralAdapter.MuralViewHolder> implements Filterable {
 
     //inner class
     class MuralViewHolder extends RecyclerView.ViewHolder{
@@ -31,7 +36,7 @@ public class MuralAdapter extends RecyclerView.Adapter<MuralAdapter.MuralViewHol
             public void onClick(View view) {
                 int position = getAdapterPosition();
                 Bundle dataToSend = new Bundle();
-                dataToSend.putSerializable("mural_to_detail", items.get(position));
+                dataToSend.putSerializable("mural_to_detail", allItems.get(position));
                 Navigation.findNavController(view).navigate(R.id.list_to_detail, dataToSend);
             }
         };
@@ -45,12 +50,13 @@ public class MuralAdapter extends RecyclerView.Adapter<MuralAdapter.MuralViewHol
     }
 
     private Application mApplication;
-    private List<Mural> items;
+    private List<Mural> allItems, filteredItems;
     private LocationConverter mConverter;
 
     public MuralAdapter(Application mApplication) {
         this.mApplication = mApplication;
-        items = new ArrayList<>();
+        allItems = new ArrayList<>();
+        filteredItems = new ArrayList<>();
     }
 
     @NonNull
@@ -64,7 +70,7 @@ public class MuralAdapter extends RecyclerView.Adapter<MuralAdapter.MuralViewHol
 
     @Override
     public void onBindViewHolder(@NonNull MuralViewHolder cardHolder, int position) {
-        Mural currentMural = items.get(position);
+        Mural currentMural = filteredItems.get(position);
         cardHolder.characterTitleMuralTV.setText(currentMural.getCharacterTitle().toUpperCase());
         cardHolder.artistYearMuralTV.setText(currentMural.getArtist() + ", " + currentMural.getYear());
         mConverter = new LocationConverter();
@@ -73,11 +79,44 @@ public class MuralAdapter extends RecyclerView.Adapter<MuralAdapter.MuralViewHol
 
     @Override
     public int getItemCount() {
-        return items.size();
+        return filteredItems.size();
     }
 
     public void addItems(List<Mural> murals) {
-        items.clear();
-        items.addAll(murals);
+        filteredItems.clear();
+        filteredItems.addAll(murals);
+        allItems.clear();
+        allItems.addAll(murals);
     }
+
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                String input = Normalizer.normalize(constraint, NFD).toLowerCase();
+                if (input.isEmpty()) {
+                    filteredItems = allItems;
+                } else {
+                    filteredItems = allItems;
+                    ArrayList<Mural> tempList = new ArrayList<>();
+                    for (Mural element : filteredItems) {
+                        if (Normalizer.normalize(element.getCharacterTitle().toLowerCase(), NFD).contains(input)
+                                || Normalizer.normalize(element.getArtist().toLowerCase(), NFD).contains(input))
+                        {
+                            tempList.add(element);
+                        }
+                    } filteredItems = tempList;
+                }
+                return null;
+            }
+
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+                notifyDataSetChanged();
+            }
+        };
+    }
+
 }

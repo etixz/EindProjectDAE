@@ -16,6 +16,7 @@ import androidx.navigation.Navigation;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.Marker;
+import com.google.android.material.button.MaterialButton;
 import com.squareup.picasso.Picasso;
 
 import dae.mob123.R;
@@ -60,7 +61,7 @@ public class DetailFragment extends Fragment {
                 Picasso.get().load("https://opendata.brussel.be/api/v2/catalog/datasets/street-art/files/" + muralFromList.getImageID()).into(imageIV);
             };
         }
-        Button showOnMap = rootView.findViewById(R.id.btn_show_place_on_map);
+        MaterialButton showOnMap = rootView.findViewById(R.id.btn_show_place_on_map);
         showOnMap.setOnClickListener(new View.OnClickListener() {
             private Marker marker;
             @Override

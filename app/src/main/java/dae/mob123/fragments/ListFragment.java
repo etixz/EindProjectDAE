@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -27,6 +29,18 @@ public class ListFragment extends Fragment {
 
     private AppCompatActivity mContext;
     private MuralAdapter muralAdapter;
+    private androidx.appcompat.widget.SearchView.OnQueryTextListener searchListener = new androidx.appcompat.widget.SearchView.OnQueryTextListener() {
+        @Override
+        public boolean onQueryTextSubmit(String query) {
+            return false;
+        }
+
+        @Override
+        public boolean onQueryTextChange(String newText) {
+            muralAdapter.getFilter().filter(newText);
+            return false;
+        }
+    };
 
 
     public ListFragment() {
@@ -43,7 +57,7 @@ public class ListFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_list, container, false);
-
+        setHasOptionsMenu(true);
         RecyclerView muralListRV = rootView.findViewById(R.id.rv_mural_list);
         muralAdapter = new MuralAdapter(mContext.getApplication());
         muralListRV.setAdapter(muralAdapter);
@@ -59,5 +73,16 @@ public class ListFragment extends Fragment {
             }
         });
         return rootView;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.search_menu, menu);
+
+        androidx.appcompat.widget.SearchView searchView = (androidx.appcompat.widget.SearchView) menu.findItem(R.id.app_bar_search).getActionView();
+
+        searchView.setOnQueryTextListener(searchListener);
+
+        super.onCreateOptionsMenu(menu, inflater);
     }
 }

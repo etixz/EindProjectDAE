@@ -5,46 +5,56 @@
     android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="@color/colorAccent"
     tools:context=".fragments.AboutFragment">
 
     <TextView
         android:id="@+id/tv_about_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@android:color/background_dark"
+        android:background="@color/colorPrimaryDark"
         android:gravity="center"
         android:paddingLeft="16dp"
         android:paddingTop="4dp"
         android:paddingRight="16dp"
-        android:paddingBottom="4dp"
+        android:paddingBottom="10dp"
         android:text="@string/str_tv_about_title"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/colorPrimary"
         android:textSize="26sp"
         app:fontFamily="@font/cantarell_bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tv_about_content"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginLeft="12dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="12dp"
-        android:layout_marginRight="12dp"
-        android:lineSpacingExtra="8sp"
-        android:paddingLeft="4dp"
-        android:paddingRight="4dp"
-        android:text="@string/str_tv_about_content"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="@color/colorAccent"
-        app:fontFamily="@font/cantarell_regular"
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:fillViewport="true"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:paddingBottom="20dp"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_about_title" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_about_title">
+
+        <TextView
+            android:id="@+id/tv_about_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:lineSpacingExtra="8sp"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:text="@string/str_tv_about_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/colorPrimary"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:fontFamily="@font/cantarell_regular" />
+    </androidx.core.widget.NestedScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

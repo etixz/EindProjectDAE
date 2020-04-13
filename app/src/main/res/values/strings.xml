@@ -10,6 +10,7 @@
 
     <string name="str_lp_pref_sort">Sorteeropties</string>
     <string name="str_settings">Voorkeuren</string>
+    <string name="str_app_bar_search">Zoeken</string>
     <string-array name="str_arr_pref_sort">
         <item>Sorteer op personagenaam</item>
         <item>Sorteer op auteursnaam</item>

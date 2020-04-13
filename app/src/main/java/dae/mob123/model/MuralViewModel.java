@@ -32,8 +32,6 @@ It also provides methods to access the data by accessing the Room DAO.
 */
 public class MuralViewModel extends AndroidViewModel {
 
-    private MutableLiveData<List<Mural>> murals;
-    private ArrayList<Mural> muralArrayList = new ArrayList<>();
     private MuralDatabase database;
     private final Application mApplication;
     public ExecutorService threadExecutor = Executors.newFixedThreadPool(4);
@@ -49,7 +47,7 @@ public class MuralViewModel extends AndroidViewModel {
 
     /*Method to get a list with all the Murals as Live Data*/
     public LiveData<List<Mural>> getMurals(){
-        if(database.getRepoDao().getAllMurals() == null) {
+        if(database.getRepoDao().getAllMurals().getValue() == null) {
             fetchAllMurals();
         }
         return database.getRepoDao().getAllMurals();
@@ -142,7 +140,6 @@ public class MuralViewModel extends AndroidViewModel {
                                 }
                             }
                         });
-
                     }
                 }
 
@@ -162,5 +159,12 @@ public class MuralViewModel extends AndroidViewModel {
     public void insertMural( Mural mural){
         MuralDatabase.getInstance(getApplication()).getRepoDao().insertMural(mural);
     }
-
+//
+//    public void updateMural(Mural mural){
+//        MuralDatabase.getInstance(getApplication()).getRepoDao().updateMural(mural);
+//    }
+//
+//    public void deleteMural(Mural mural){
+//        MuralDatabase.getInstance(getApplication()).getRepoDao().deleteMural(mural);
+//    }
 }

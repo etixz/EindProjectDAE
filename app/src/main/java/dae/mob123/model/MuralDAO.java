@@ -16,10 +16,10 @@ Data Access Object that uses the Room package to make queries to the local datab
 public interface MuralDAO {
 
     @Query("SELECT * FROM Mural ORDER BY characterTitle")
-    List<Mural> getAllMurals();
+    LiveData<List<Mural>> getAllMurals();
 
     @Query("SELECT * FROM Mural ORDER BY artist")
-    List<Mural> getAllMuralsOrderByArtist();
+    LiveData<List<Mural>> getAllMuralsOrderByArtist();
 
     @Query("SELECT * FROM Mural WHERE muralID LIKE:muralID")
     Mural findMuralByID(String muralID);

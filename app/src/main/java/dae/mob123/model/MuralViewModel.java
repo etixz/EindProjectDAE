@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -43,16 +44,15 @@ public class MuralViewModel extends AndroidViewModel {
         mApplication = application;
         database = MuralDatabase.getInstance(application);
 
-        this.murals = new MutableLiveData<>();
         //murals = (MutableLiveData<List<Mural>>) database.getRepoDao().getAllMurals();
     }
 
     /*Method to get a list with all the Murals as Live Data*/
-    public MutableLiveData<List<Mural>> getMurals(){
-        if(murals.getValue() == null) {
+    public LiveData<List<Mural>> getMurals(){
+        if(database.getRepoDao().getAllMurals() == null) {
             fetchAllMurals();
         }
-        return murals;
+        return database.getRepoDao().getAllMurals();
     }
 
     /*Consume the restAPI and deserialise data from JSON objects to Java objects by running in a thread in the background*/
@@ -100,12 +100,7 @@ public class MuralViewModel extends AndroidViewModel {
                                 }
                             }
                         });
-                        /*Add the Mural object to an ArrayList*/
-                        muralArrayList.add(currentComicBookMural);
                     }
-
-                    /*Convert the ArrayList containing all the instances of Mural to MutableLiveData*/
-                    murals.postValue(muralArrayList);
 
                 } catch (IOException e){
                     e.printStackTrace();
@@ -147,9 +142,8 @@ public class MuralViewModel extends AndroidViewModel {
                                 }
                             }
                         });
-                        muralArrayList.add(currentStreetArt);
+
                     }
-                    murals.postValue(muralArrayList);
                 }
 
                 catch (IOException e){
@@ -168,12 +162,5 @@ public class MuralViewModel extends AndroidViewModel {
     public void insertMural( Mural mural){
         MuralDatabase.getInstance(getApplication()).getRepoDao().insertMural(mural);
     }
-//
-//    public void updateMural(Mural mural){
-//        MuralDatabase.getInstance(getApplication()).getRepoDao().updateMural(mural);
-//    }
-//
-//    public void deleteMural(Mural mural){
-//        MuralDatabase.getInstance(getApplication()).getRepoDao().deleteMural(mural);
-//    }
+
 }

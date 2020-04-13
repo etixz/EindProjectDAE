@@ -55,6 +55,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private LatLng currentLocationCoordinates;
     private FusedLocationProviderClient fusedLocationProviderClient;
     private static final int REQUEST_CODE = 101;
+    private Bundle dataFromDetail;
+
+
 
     private GoogleMap.OnInfoWindowClickListener detailListener = new GoogleMap.OnInfoWindowClickListener() {
         @Override
@@ -65,7 +68,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 data.putSerializable("mural_to_detail", mural);
                 Navigation.findNavController(mapView).navigate(R.id.detail_fragment, data);
             }
-                Toast.makeText(getActivity(), mural.getCharacterTitle(), Toast.LENGTH_SHORT).show();
         }
     };
 
@@ -77,7 +79,14 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         myMap = googleMap;
 
         CameraUpdate moveToBXL = CameraUpdateFactory.newLatLngZoom(COORD_BXL, 15);
-        myMap.animateCamera(moveToBXL);
+        Mural muralFromMap = (Mural) dataFromDetail.getSerializable("mural_to_map");
+
+        if (muralFromMap == null) {
+                       myMap.animateCamera(moveToBXL);
+        } else {
+            CameraUpdate moveToMural = CameraUpdateFactory.newLatLngZoom(muralFromMap.getCoordinates(), 19);
+            myMap.animateCamera((moveToMural));
+        }
         //myContext.setContentView(R.layout.custom_marker_layout);
         myMap.setOnInfoWindowClickListener(detailListener);
         setMarkerAdapter();
@@ -95,6 +104,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_map, container, false);
+
+        dataFromDetail = getArguments();
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(myContext);
 
@@ -116,31 +127,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 break;
         }
     }
-
-
-
-    private void fetchLastlocation() {
-        if (ActivityCompat.checkSelfPermission(myContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(myContext, new String[]
-                    {Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE);
-        }
-
-        Task<Location> locationTask = fusedLocationProviderClient.getLastLocation();
-        locationTask.addOnSuccessListener(new OnSuccessListener<Location>() {
-            @Override
-            public void onSuccess(Location location) {
-                if (location != null) {
-                    currentLocation = location;
-                    currentLocationCoordinates = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-                    LatLng userLocation = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-                    MarkerOptions markerOptions = new MarkerOptions().position(userLocation)
-                            .title("I am here");
-                    myMap.addMarker(markerOptions);
-                }
-            }
-        });
-    }
-
 
     private void setMarkerAdapter() {
         myMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
@@ -167,7 +153,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             @Override
             public void onChanged(List<Mural> murals) {
                 for (Mural mural : murals) {
-                    Log.e("DEBUG", mural.toString());
                     Marker marker = myMap.addMarker(new MarkerOptions()
                             .position(mural.getCoordinates())
                             .icon(BitmapDescriptorFactory.fromResource(R.drawable.custom_marker)));
@@ -226,62 +211,3 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         mapView.onLowMemory();
     }
 }
-
-
-//    private void drawMarkers() {
-//
-//        View marker = getActivity().getLayoutInflater().inflate(R.layout.mural_marker_card, null);
-//        customMarker = myMap.addMarker(new MarkerOptions()
-//                .icon(BitmapDescriptorFactory.fromBitmap(createDrawableFromView(myContext, marker))));
-//
-//        final View mapView = getChildFragmentManager().findFragmentById(R.id.map_fragment).getView();
-//        if (mapView.getViewTreeObserver().isAlive()) {
-//            mapView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-//                @SuppressLint("NewApi")
-//                // nakijken welke build version dat wij aan gebruiken zijn.
-//                @Override
-//                public void onGlobalLayout() {
-//                    LatLngBounds bounds = new LatLngBounds.Builder().include(COORD_BXL).build();
-//                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-//                        mapView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-//                    } else {
-//                        mapView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-//                    }
-//                    myMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 50));
-//                }
-//            });
-//        }
-//
-//        MuralViewModel muralViewModel = new ViewModelProvider(myContext).get(MuralViewModel.class);
-//        muralViewModel.getMurals().observe(myContext, new Observer<List<Mural>>() {
-//            @Override
-//            public void onChanged(List<Mural> murals) {
-//                for (Mural mural : murals) {
-//                    Marker m = myMap.addMarker(new MarkerOptions()
-//                            .position(mural.getCoordinates()));
-//                    m.setTitle(mural.getCharacter());
-//                    m.setSnippet(String.valueOf(mural.getCoordinates()));
-//                    m.setTag(mural);
-//                }
-//            }
-//        });
-//    }
-
-
-// omzetten van een view in een bitmap
-// public static Bitmap createDrawableFromView(Context mycontext, View mapView) {
-//   DisplayMetrics displayMetrics = new DisplayMetrics();
-// ((Activity) mycontext).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-//mapView.setLayoutParams(new ActionBar.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT));
-//mapView.measure(displayMetrics.widthPixels, displayMetrics.heightPixels);
-//mapView.layout(0, 0, displayMetrics.widthPixels, displayMetrics.heightPixels);
-//mapView.buildDrawingCache();
-//Bitmap bitmap = Bitmap.createBitmap(mapView.getMeasuredWidth(), mapView.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
-
-//Canvas canvas = new Canvas(bitmap);
-//mapView.draw(canvas);
-
-//return bitmap;
-//}
-
-

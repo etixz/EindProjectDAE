@@ -1,6 +1,5 @@
 package dae.mob123.fragments;
 
-import android.app.ActionBar;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,12 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapView;
-import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.Marker;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
 
 import dae.mob123.R;
@@ -71,8 +66,8 @@ public class DetailFragment extends Fragment {
             @Override
             public void onClick(View view) {
                     Bundle data = new Bundle();
-                    data.putSerializable("detail_to_map", "mural_to_map");
-                    Navigation.findNavController(view).navigate(R.id.action_detail_fragment_to_map_fragment, data);
+                    data.putSerializable("mural_to_map", muralFromList);
+                    Navigation.findNavController(view).navigate(R.id.detail_to_map, data);
                 }
 
         });

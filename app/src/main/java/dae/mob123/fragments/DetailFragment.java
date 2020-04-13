@@ -27,6 +27,8 @@ import dae.mob123.R;
 import dae.mob123.fragments.util.LocationConverter;
 import dae.mob123.model.Mural;
 
+import static dae.mob123.model.util.MuralType.COMIC_BOOK;
+
 //Author:DG
 public class DetailFragment extends Fragment {
 
@@ -57,9 +59,10 @@ public class DetailFragment extends Fragment {
             artistYearTV.setText(muralFromList.getArtist() + ", " + muralFromList.getYear());
             LocationConverter myConverter = new LocationConverter();
             streetAddressTV.setText(myConverter.convertCoordinatesToAddress(appCompatActivity, muralFromList.getCoordinates()));
-            switch (muralFromList.getMuralType()) {
-                case COMIC_BOOK: Picasso.get().load("https://opendata.bruxelles.be/api/v2/catalog/datasets/comic-book-route/files/" + muralFromList.getImageID()).into(imageIV);
-                case STREET_ART: Picasso.get().load("https://opendata.brussel.be/api/v2/catalog/datasets/street-art/files/" + muralFromList.getImageID()).into(imageIV);
+            if (muralFromList.getMuralType() == COMIC_BOOK) {
+                Picasso.get().load("https://opendata.bruxelles.be/api/v2/catalog/datasets/comic-book-route/files/" + muralFromList.getImageID()).into(imageIV);
+            } else {
+                Picasso.get().load("https://opendata.brussel.be/api/v2/catalog/datasets/street-art/files/" + muralFromList.getImageID()).into(imageIV);
             };
         }
         Button showOnMap = rootView.findViewById(R.id.btn_show_place_on_map);
@@ -67,14 +70,11 @@ public class DetailFragment extends Fragment {
             private Marker marker;
             @Override
             public void onClick(View view) {
-                Mural mural = (Mural) marker.getTag();
-                if (mural != null) {
                     Bundle data = new Bundle();
-                    data.putSerializable("detail_to_map", mural);
-                    mural.getCoordinates();
+                    data.putSerializable("detail_to_map", "mural_to_map");
                     Navigation.findNavController(view).navigate(R.id.action_detail_fragment_to_map_fragment, data);
                 }
-            }
+
         });
 
         return rootView;

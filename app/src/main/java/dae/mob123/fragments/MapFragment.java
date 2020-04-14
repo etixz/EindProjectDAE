@@ -25,6 +25,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -38,6 +39,7 @@ import dae.mob123.R;
 import dae.mob123.fragments.util.LocationConverter;
 import dae.mob123.model.Mural;
 import dae.mob123.model.MuralViewModel;
+import dae.mob123.model.util.MuralType;
 
 /*
 Author: AB
@@ -82,7 +84,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             CameraUpdate moveToMural = CameraUpdateFactory.newLatLngZoom(muralFromMap.getCoordinates(), 19);
             myMap.animateCamera((moveToMural));
         }
-        //myContext.setContentView(R.layout.custom_marker_layout);
+
         myMap.setOnInfoWindowClickListener(infoWindowListener);
         setMarkerAdapter();
         drawMuralMarkers();
@@ -149,8 +151,12 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             public void onChanged(List<Mural> murals) {
                 for (Mural mural : murals) {
                     Marker marker = myMap.addMarker(new MarkerOptions()
-                            .position(mural.getCoordinates())
-                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.custom_marker)));
+                            .position(mural.getCoordinates()));
+                    if (mural.getMuralType() == MuralType.COMIC_BOOK){
+                        marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.custom_marker));
+                    } else {
+                        marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.custom_marker_streetart));
+                    }
                     marker.setTitle(mural.getCharacterTitle());
                     LocationConverter myConverter = new LocationConverter();
                     marker.setSnippet(myConverter.convertCoordinatesToAddress(myContext, mural.getCoordinates()));

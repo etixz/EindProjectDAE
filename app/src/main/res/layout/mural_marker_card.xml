@@ -18,22 +18,12 @@
         android:paddingRight="4dp"
         android:paddingBottom="4dp">
 
-        <ImageView
-            android:id="@+id/iv_mural_marker_card"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/custom_marker" />
-
         <TextView
             android:id="@+id/tv_mural_marker_card_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:layout_marginLeft="4dp"
-            android:layout_marginTop="2dp"
             android:layout_marginEnd="4dp"
             android:layout_marginRight="4dp"
             android:gravity="center"
@@ -44,7 +34,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_mural_marker_card"
+            tools:layout_editor_absoluteY="46dp"
             tools:text="Kuifje" />
 
         <TextView

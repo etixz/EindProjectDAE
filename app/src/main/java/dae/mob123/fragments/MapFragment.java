@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -50,7 +51,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private GoogleMap myMap;
     private FragmentActivity myContext;
     private final LatLng COORD_BXL = new LatLng(50.8503463, 4.3517211);
-    private Marker customMarker;
     private Location currentLocation;
     private LatLng currentLocationCoordinates;
     private FusedLocationProviderClient fusedLocationProviderClient;
@@ -75,7 +75,17 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap googleMap) {
         myMap = googleMap;
+        myMap.setMyLocationEnabled(true);
+        myMap.getUiSettings().setCompassEnabled(true);
+
         Mural muralFromMap = (Mural) dataFromDetail.getSerializable("mural_to_map");
+
+        /*Button to center map on user location*/
+        View locationButton = ((View) mapView.findViewById(Integer.parseInt("1")).getParent()).findViewById(Integer.parseInt("2"));
+        /*Set placement of location button to the top right of the Map*/
+        RelativeLayout.LayoutParams rlp = (RelativeLayout.LayoutParams) locationButton.getLayoutParams();
+        rlp.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0);
+        rlp.addRule(RelativeLayout.ALIGN_PARENT_TOP, RelativeLayout.TRUE);
 
         if (muralFromMap == null) {
             CameraUpdate moveToBXL = CameraUpdateFactory.newLatLngZoom(COORD_BXL, 15);
@@ -152,7 +162,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                     Marker marker = myMap.addMarker(new MarkerOptions()
                             .position(mural.getCoordinates()));
                     if (mural.getMuralType() == MuralType.COMIC_BOOK){
-                        marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.custom_marker));
+                        marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.custom_marker_comicbook));
                     } else {
                         marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.custom_marker_streetart));
                     }
@@ -178,10 +188,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 if (location != null) {
                     currentLocation = location;
                     currentLocationCoordinates = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-                    LatLng userLocation = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-                    MarkerOptions markerOptions = new MarkerOptions().position(userLocation)
-                            .title("I am here");
-                    myMap.addMarker(markerOptions);
+                    Marker markerUserLocation = myMap.addMarker(new MarkerOptions()
+                            .position(currentLocationCoordinates));
+                    markerUserLocation.hideInfoWindow();
                 }
             }
         });

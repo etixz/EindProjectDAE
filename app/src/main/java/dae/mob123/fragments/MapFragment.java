@@ -84,7 +84,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             CameraUpdate moveToMural = CameraUpdateFactory.newLatLngZoom(muralFromMap.getCoordinates(), 19);
             myMap.animateCamera((moveToMural));
         }
-
         myMap.setOnInfoWindowClickListener(infoWindowListener);
         setMarkerAdapter();
         drawMuralMarkers();

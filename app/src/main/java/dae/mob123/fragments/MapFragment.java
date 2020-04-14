@@ -76,12 +76,14 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     public void onMapReady(GoogleMap googleMap) {
         myMap = googleMap;
         myMap.setMyLocationEnabled(true);
+        myMap.getUiSettings().setCompassEnabled(true);
+
         Mural muralFromMap = (Mural) dataFromDetail.getSerializable("mural_to_map");
 
         /*Button to center map on user location*/
         View locationButton = ((View) mapView.findViewById(Integer.parseInt("1")).getParent()).findViewById(Integer.parseInt("2"));
+        /*Set placement of location button to the top right of the Map*/
         RelativeLayout.LayoutParams rlp = (RelativeLayout.LayoutParams) locationButton.getLayoutParams();
-        // position on right bottom
         rlp.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0);
         rlp.addRule(RelativeLayout.ALIGN_PARENT_TOP, RelativeLayout.TRUE);
 
@@ -92,8 +94,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             CameraUpdate moveToMural = CameraUpdateFactory.newLatLngZoom(muralFromMap.getCoordinates(), 19);
             myMap.animateCamera((moveToMural));
         }
-
-
 
         myMap.setOnInfoWindowClickListener(infoWindowListener);
         setMarkerAdapter();

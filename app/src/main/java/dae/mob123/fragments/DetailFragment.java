@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,7 +22,6 @@ import dae.mob123.fragments.util.LocationConverter;
 import dae.mob123.model.Mural;
 
 import static dae.mob123.model.util.MuralType.COMIC_BOOK;
-import static dae.mob123.model.util.MuralType.STREET_ART;
 
 //Author:DG
 public class DetailFragment extends Fragment {
@@ -33,7 +31,6 @@ public class DetailFragment extends Fragment {
     private Bundle dataFromList;
     private ImageView imageIV;
     private AppCompatActivity appCompatActivity;
-    private ConnectivityManager connectivityManager;
     private MaterialButton showOnMap;
 
 
@@ -57,12 +54,12 @@ public class DetailFragment extends Fragment {
             LocationConverter myConverter = new LocationConverter();
             streetAddressTV.setText(myConverter.convertCoordinatesToAddress(appCompatActivity, muralFromList.getCoordinates()));
             if (muralFromList.getMuralType() == COMIC_BOOK) {
-                Picasso.get().load("https://opendata.bruxelles.be/api/v2/catalog/datasets/comic-book-route/files/" + muralFromList.getImageID())
-                        .placeholder(R.drawable.ic_signal_wifi_off_grey_24dp)
+                Picasso.get().load("https://opendata.bruxelles.be/api/v2/catalog/datasets/comic-book-route/files/" + muralFromList.getImageURL())
+                        .placeholder(R.drawable.ic_image_placeholder)
                         .into(imageIV);
             } else {
-                Picasso.get().load("https://opendata.brussel.be/api/v2/catalog/datasets/street-art/files/" + muralFromList.getImageID())
-                        .placeholder(R.drawable.ic_signal_wifi_off_grey_24dp)
+                Picasso.get().load("https://opendata.brussel.be/api/v2/catalog/datasets/street-art/files/" + muralFromList.getImageURL())
+                        .placeholder(R.drawable.ic_image_placeholder)
                         .into(imageIV);
             }
         }

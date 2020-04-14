@@ -22,7 +22,7 @@ public class Mural implements Serializable {
     @PrimaryKey
     @NonNull
     private String muralID;
-    private String artist, imageID, characterTitle, year;
+    private String artist, imageURL, characterTitle, year;
     private MuralType muralType;
     private LatLng coordinates;
 
@@ -33,11 +33,11 @@ public class Mural implements Serializable {
     Alternate constructor used in MuralViewModel, must be ignored by Room
     */
     @Ignore
-    public Mural(MuralType muralType, String muralID, String artist, String imageID, String characterTitle, String year, LatLng coordinates) {
+    public Mural(MuralType muralType, String muralID, String artist, String imageURL, String characterTitle, String year, LatLng coordinates) {
         this.muralType = muralType;
         this.muralID = muralID;
         this.artist = artist;
-        this.imageID = imageID;
+        this.imageURL = imageURL;
         this.characterTitle = characterTitle;
         this.year = year;
         this.coordinates = coordinates;
@@ -67,12 +67,12 @@ public class Mural implements Serializable {
         this.artist = artist;
     }
 
-    public String getImageID() {
-        return imageID;
+    public String getImageURL() {
+        return imageURL;
     }
 
-    public void setImageID(String imageID) {
-        this.imageID = imageID;
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
     }
 
     public String getCharacterTitle() {

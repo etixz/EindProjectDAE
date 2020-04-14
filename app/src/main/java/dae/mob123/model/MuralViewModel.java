@@ -2,6 +2,7 @@ package dae.mob123.model;
 
 import android.app.Application;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -101,6 +102,8 @@ public class MuralViewModel extends AndroidViewModel {
                                 new LatLng(jsonComicBookMural.getJSONArray("coordonnees_geographiques").getDouble(0),
                                            jsonComicBookMural.getJSONArray("coordonnees_geographiques").getDouble(1))
                         );
+
+                        Log.d("ImageURL Comic book", currentComicBookMural.getImageURL());
                         /*If the Mural object does not exist in the database, store it in database*/
                         MuralDatabase.databaseWriteExecutor.execute(new Runnable() {
                             @Override
@@ -137,13 +140,13 @@ public class MuralViewModel extends AndroidViewModel {
                                 MuralType.STREET_ART,
                                 jsonStreetArtID,
                                 (jsonStreetArt.has("name_of_the_artist")) ? jsonStreetArt.getString("name_of_the_artist") : "Anonymous",
-                                (jsonStreetArt.has("photo")) ? jsonStreetArt.getJSONObject("photo").getString("id") : "No picture evailable",
+                                (jsonStreetArt.has("photo")) ? jsonStreetArt.getJSONObject("photo").getString("id") : "No picture available",
                                 (jsonStreetArt.has("name_of_the_work")) ? jsonStreetArt.getString("name_of_the_work") : "Untitled",
                                 (jsonStreetArt.has("annee")) ? jsonStreetArt.getString("annee") : "year unknown",
                                 new LatLng(jsonStreetArt.getJSONArray("geocoordinates").getDouble(0),
                                            jsonStreetArt.getJSONArray("geocoordinates").getDouble(1))
                         );
-
+                        Log.d("ImageURL StreetArt", currentStreetArt.getImageURL());
                         MuralDatabase.databaseWriteExecutor.execute(new Runnable() {
                             @Override
                             public void run() {
@@ -171,12 +174,5 @@ public class MuralViewModel extends AndroidViewModel {
     public void insertMural( Mural mural){
         MuralDatabase.getInstance(getApplication()).getRepoDao().insertMural(mural);
     }
-//
-//    public void updateMural(Mural mural){
-//        MuralDatabase.getInstance(getApplication()).getRepoDao().updateMural(mural);
-//    }
-//
-//    public void deleteMural(Mural mural){
-//        MuralDatabase.getInstance(getApplication()).getRepoDao().deleteMural(mural);
-//    }
+
 }

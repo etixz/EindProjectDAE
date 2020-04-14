@@ -2,6 +2,7 @@ package dae.mob123.model;
 
 import android.app.Application;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -52,17 +53,26 @@ public class MuralViewModel extends AndroidViewModel {
         if(database.getRepoDao().getAllMurals().getValue() == null) {
             fetchAllMurals();
         }
-        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mApplication);
         LiveData<List<Mural>> murals = database.getRepoDao().getAllMurals();
-        String sortBy = settings.getString("lp_pref_sort", String.valueOf(R.string.str_pref_sort_name));
-        switch (sortBy) {
-            case "Sorteer op personagenaam/titel" : murals = database.getRepoDao().getAllMurals();
-            //case R.string.str_pref_sort_name : murals = database.getRepoDao().getAllMurals();
-            break;
-            //case R.string.str_pref_sort_artist : murals = database.getRepoDao().getAllMuralsOrderByArtist();
-            case "Sorteer op auteurs- of artiestennaam" : murals = database.getRepoDao().getAllMuralsOrderByArtist();
-            break;
-        }
+//        TODO: Fix preference selection for all languages
+//        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mApplication);
+//        //If switch int sortBy, returns a class cast exception
+//        int sortBy = settings.getInt("lp_pref_sort", R.string.str_pref_sort_name));
+//        switch (sortBy)
+//        case R.string.str_pref_sort_name : murals = database.getRepoDao().getAllMurals();
+//            break;
+//            case R.string.str_pref_sort_artist : murals = database.getRepoDao().getAllMuralsOrderByArtist();
+//            break;
+//        }
+
+//        //if switch String sortBy, only accepts constant string values
+//        String sortBy = settings.getString("lp_pref_sort", String.valueOf(R.string.str_pref_sort_name));
+//        switch (sortBy) {
+//            case String.valueOf(R.string.str_pref_sort_name) : murals = database.getRepoDao().getAllMurals();
+//            break;
+//            case String.valueOf(R.string.str_pref_sort_artist) : murals = database.getRepoDao().getAllMuralsOrderByArtist();
+//            break;
+//        }
         return murals;
     }
 

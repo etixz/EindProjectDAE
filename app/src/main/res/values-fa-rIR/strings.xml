@@ -12,4 +12,5 @@
     <string name="str_settings">تنظیمات برگزیده</string>
     <string name="str_app_bar_search">جستجو</string>
     <string name="str_pref_sort_name">مرتب سازی بر اساس نام شخصیت / عنوان</string>
+
 </resources>

@@ -12,4 +12,9 @@
     <string name="str_btn_home_list">List of comic book murals</string>
     <string name="str_pref_sort_name">Sort by character name/title</string>
     <string name="str_pref_sort_artist">Sort by artist</string>
+    <string name="str_show_on_map">Show on map</string>
+    <string name="str_no_year">year unknown</string>
+    <string name="str_no_artist">Anonymous</string>
+    <string name="str_no_character_title">Untitled</string>
+    <string name="str_tv_about_title_streetart">History of the street art route</string>
 </resources>

@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -41,9 +40,7 @@ import dae.mob123.model.Mural;
 import dae.mob123.model.MuralViewModel;
 import dae.mob123.model.util.MuralType;
 
-/*
-Author: AB & DG
- */
+/* Authors: AB & DG */
 public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     private MapView mapView;
@@ -72,38 +69,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     }
 
     @Override
-    public void onMapReady(GoogleMap googleMap) {
-        myMap = googleMap;
-        /*Button to reset map after orientation changed*/
-        myMap.getUiSettings().setCompassEnabled(true);
-        /*Button to center map on user location*/
-        myMap.setMyLocationEnabled(true);
-
-
-        Mural muralFromMap = (Mural) dataFromDetail.getSerializable("mural_to_map");
-        if (muralFromMap == null) {
-            CameraUpdate moveToBXL = CameraUpdateFactory.newLatLngZoom(COORD_BXL, 15);
-            myMap.animateCamera(moveToBXL);
-        } else {
-            CameraUpdate moveToMural = CameraUpdateFactory.newLatLngZoom(muralFromMap.getCoordinates(), 19);
-            myMap.animateCamera((moveToMural));
-        }
-
-        myMap.setOnInfoWindowClickListener(infoWindowListener);
-        setMarkerAdapter();
-        drawMuralMarkers();
-        drawUserLocationMarker();
-    }
-
-    @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         myContext = (FragmentActivity) context;
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_map, container, false);
 
         dataFromDetail = getArguments();
@@ -118,14 +90,25 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode){
-            case REQUEST_CODE:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                    drawUserLocationMarker();
-                }
-                break;
+    public void onMapReady(GoogleMap googleMap) {
+        myMap = googleMap;
+        /*Button to reset map after orientation changed*/
+        myMap.getUiSettings().setCompassEnabled(true);
+
+        Mural muralFromMap = (Mural) dataFromDetail.getSerializable("mural_to_map");
+        if (muralFromMap == null) {
+            CameraUpdate moveToBXL = CameraUpdateFactory.newLatLngZoom(COORD_BXL, 15);
+            myMap.animateCamera(moveToBXL);
+        } else {
+            CameraUpdate moveToMural = CameraUpdateFactory.newLatLngZoom(muralFromMap.getCoordinates(), 19);
+            myMap.animateCamera((moveToMural));
         }
+        myMap.setOnInfoWindowClickListener(infoWindowListener);
+        setMarkerAdapter();
+        drawMuralMarkers();
+        drawUserLocationMarker();
+        /*Button to center map on user location*/
+        myMap.setMyLocationEnabled(true);
     }
 
     private void setMarkerAdapter() {
@@ -187,6 +170,17 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 }
             }
         });
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode){
+            case REQUEST_CODE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                    drawUserLocationMarker();
+                }
+                break;
+        }
     }
 
     @Override

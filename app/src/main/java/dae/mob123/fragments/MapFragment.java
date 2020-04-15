@@ -26,7 +26,6 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -43,7 +42,7 @@ import dae.mob123.model.MuralViewModel;
 import dae.mob123.model.util.MuralType;
 
 /*
-Author: AB
+Author: AB & DG
  */
 public class MapFragment extends Fragment implements OnMapReadyCallback {
 
@@ -75,18 +74,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap googleMap) {
         myMap = googleMap;
-        myMap.setMyLocationEnabled(true);
+        /*Button to reset map after orientation changed*/
         myMap.getUiSettings().setCompassEnabled(true);
+        /*Button to center map on user location*/
+        myMap.setMyLocationEnabled(true);
+
 
         Mural muralFromMap = (Mural) dataFromDetail.getSerializable("mural_to_map");
-
-        /*Button to center map on user location*/
-        View locationButton = ((View) mapView.findViewById(Integer.parseInt("1")).getParent()).findViewById(Integer.parseInt("2"));
-        /*Set placement of location button to the top right of the Map*/
-        RelativeLayout.LayoutParams rlp = (RelativeLayout.LayoutParams) locationButton.getLayoutParams();
-        rlp.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0);
-        rlp.addRule(RelativeLayout.ALIGN_PARENT_TOP, RelativeLayout.TRUE);
-
         if (muralFromMap == null) {
             CameraUpdate moveToBXL = CameraUpdateFactory.newLatLngZoom(COORD_BXL, 15);
             myMap.animateCamera(moveToBXL);
@@ -94,6 +88,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             CameraUpdate moveToMural = CameraUpdateFactory.newLatLngZoom(muralFromMap.getCoordinates(), 19);
             myMap.animateCamera((moveToMural));
         }
+
         myMap.setOnInfoWindowClickListener(infoWindowListener);
         setMarkerAdapter();
         drawMuralMarkers();
@@ -128,7 +123,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             case REQUEST_CODE:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
                     drawUserLocationMarker();
-                    myMap.setMyLocationEnabled(true);
                 }
                 break;
         }
@@ -175,7 +169,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         });
     }
 
-    //method causes nullpointer exception
     private void drawUserLocationMarker() {
         if (ActivityCompat.checkSelfPermission(myContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(myContext, new String[]

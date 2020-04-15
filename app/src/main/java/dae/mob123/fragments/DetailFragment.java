@@ -1,7 +1,6 @@
 package dae.mob123.fragments;
 
 import android.content.Context;
-import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,7 +32,6 @@ public class DetailFragment extends Fragment {
     private AppCompatActivity appCompatActivity;
     private MaterialButton showOnMap;
 
-
     public DetailFragment() {
     }
 
@@ -53,14 +51,15 @@ public class DetailFragment extends Fragment {
             artistYearTV.setText(muralFromList.getArtist() + ", " + muralFromList.getYear());
             LocationConverter myConverter = new LocationConverter();
             streetAddressTV.setText(myConverter.convertCoordinatesToAddress(appCompatActivity, muralFromList.getCoordinates()));
+
             if (muralFromList.getMuralType() == COMIC_BOOK) {
                 Picasso.get().load("https://opendata.bruxelles.be/api/v2/catalog/datasets/comic-book-route/files/" + muralFromList.getImageURL())
-                        .placeholder(R.drawable.ic_image_placeholder)
-                        .into(imageIV);
+                            .placeholder(R.drawable.ic_image_placeholder)
+                            .into(imageIV);
             } else {
                 Picasso.get().load("https://opendata.brussel.be/api/v2/catalog/datasets/street-art/files/" + muralFromList.getImageURL())
-                        .placeholder(R.drawable.ic_image_placeholder)
-                        .into(imageIV);
+                            .placeholder(R.drawable.ic_image_placeholder)
+                            .into(imageIV);
             }
         }
 
@@ -75,7 +74,6 @@ public class DetailFragment extends Fragment {
 
         return rootView;
     }
-
 
     public boolean dataPassed() {
         dataFromList = getArguments();

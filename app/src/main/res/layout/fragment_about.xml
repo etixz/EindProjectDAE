@@ -1,60 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorAccent"
+    android:orientation="vertical"
     tools:context=".fragments.AboutFragment">
 
     <TextView
-        android:id="@+id/tv_about_title"
-        android:layout_width="0dp"
+        android:id="@+id/tv_about_title_comicbook"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="4dp"
         android:background="@color/colorPrimaryDark"
+        android:clickable="true"
+        android:focusable="true"
         android:gravity="center"
         android:paddingLeft="16dp"
         android:paddingTop="4dp"
         android:paddingRight="16dp"
         android:paddingBottom="10dp"
-        android:text="@string/str_tv_about_title"
+        android:text="@string/str_tv_about_title_comicbook"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@color/colorPrimary"
         android:textSize="26sp"
-        app:fontFamily="@font/cantarell_bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:fontFamily="@font/cantarell_bold" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:fillViewport="true"
         android:paddingLeft="12dp"
         android:paddingRight="12dp"
         android:paddingBottom="20dp"
-        android:scrollbars="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_about_title">
+        android:scrollbars="vertical">
 
         <TextView
-            android:id="@+id/tv_about_content"
+            android:id="@+id/tv_about_content_comicbook"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:lineSpacingExtra="8sp"
             android:paddingLeft="4dp"
             android:paddingRight="4dp"
-            android:text="@string/str_tv_about_content"
+            android:text="@string/str_tv_about_content_comicbook"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@color/colorPrimary"
             android:textSize="14sp"
             android:textStyle="bold"
+            android:visibility="gone"
             app:fontFamily="@font/cantarell_regular" />
     </androidx.core.widget.NestedScrollView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/tv_about_title_streetart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="4dp"
+        android:background="@color/colorPrimaryDark"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:paddingLeft="20dp"
+        android:paddingTop="4dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="10dp"
+        android:text="@string/str_tv_about_title_streetart"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/colorPrimary"
+        android:textSize="26sp"
+        app:fontFamily="@font/cantarell_bold" />
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fillViewport="true"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:paddingBottom="20dp"
+        android:scrollbars="vertical">
+
+        <TextView
+            android:id="@+id/tv_about_content_streetart"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:lineSpacingExtra="8sp"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:text="@string/str_tv_about_content_streetart"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/colorPrimary"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:fontFamily="@font/cantarell_regular" />
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

@@ -2,7 +2,6 @@ package dae.mob123.model;
 
 import android.app.Application;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -55,24 +54,36 @@ public class MuralViewModel extends AndroidViewModel {
         }
         LiveData<List<Mural>> murals = database.getRepoDao().getAllMurals();
 //        TODO: Fix preference selection for all languages
-//        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mApplication);
-//        //If switch int sortBy, returns a class cast exception
-//        int sortBy = settings.getInt("lp_pref_sort", R.string.str_pref_sort_name));
-//        switch (sortBy)
+        //switch int sortBy returns a class cast exception
+//        int sortBy = settings.getInt("lp_pref_sort", R.string.str_pref_sort_name);
+//        switch (sortBy){
 //        case R.string.str_pref_sort_name : murals = database.getRepoDao().getAllMurals();
 //            break;
 //            case R.string.str_pref_sort_artist : murals = database.getRepoDao().getAllMuralsOrderByArtist();
 //            break;
 //        }
 
-//        //if switch String sortBy, only accepts constant string values
-//        String sortBy = settings.getString("lp_pref_sort", String.valueOf(R.string.str_pref_sort_name));
-//        switch (sortBy) {
-//            case String.valueOf(R.string.str_pref_sort_name) : murals = database.getRepoDao().getAllMurals();
-//            break;
-//            case String.valueOf(R.string.str_pref_sort_artist) : murals = database.getRepoDao().getAllMuralsOrderByArtist();
-//            break;
-//        }
+        //switch String sortBy only accepts constant string values
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mApplication);
+        String sortBy = settings.getString("lp_pref_sort", String.valueOf(R.string.str_lp_pref_sort)) ;
+        switch (sortBy) {
+            case "Sorteer op personagenaam/titel" : murals = database.getRepoDao().getAllMurals();
+            break;
+            case "Sorteer op artiestennaam" : murals = database.getRepoDao().getAllMuralsOrderByArtist();
+            break;
+            case "Sort by character name/title": murals = database.getRepoDao().getAllMurals();
+            break;
+            case "Sort by artist": murals = database.getRepoDao().getAllMuralsOrderByArtist();
+            break;
+            case "Trier par charactère/titre": murals = database.getRepoDao().getAllMurals();
+            break;
+            case "Trier par artiste": murals = database.getRepoDao().getAllMuralsOrderByArtist();
+            break;
+            case "مرتب سازی بر اساس نام شخصیت / عنوان": murals = database.getRepoDao().getAllMurals();
+            break;
+            case "مرتب سازی بر اساس نام هنرمند": murals = database.getRepoDao().getAllMuralsOrderByArtist();
+            break;
+        }
         return murals;
     }
 
@@ -106,7 +117,7 @@ public class MuralViewModel extends AndroidViewModel {
                                 MuralType.COMIC_BOOK,
                                 jsonComicBookMuralID,
                                 (jsonComicBookMural.has("auteur_s")) ? jsonComicBookMural.getString("auteur_s") : "Unknown author",
-                                (jsonComicBookMural.has("photo")) ? jsonComicBookMural.getJSONObject("photo").getString("id") : "No picture available!",
+                                (jsonComicBookMural.has("photo")) ? jsonComicBookMural.getJSONObject("photo").getString("id") : "No photo available",
                                 (jsonComicBookMural.has("personnage_s")) ? jsonComicBookMural.getString("personnage_s") : "Unknown character",
                                 (jsonComicBookMural.has("annee")) ? jsonComicBookMural.getString("annee") : "year unknown",
                                 new LatLng(jsonComicBookMural.getJSONArray("coordonnees_geographiques").getDouble(0),
@@ -150,7 +161,7 @@ public class MuralViewModel extends AndroidViewModel {
                                 MuralType.STREET_ART,
                                 jsonStreetArtID,
                                 (jsonStreetArt.has("name_of_the_artist")) ? jsonStreetArt.getString("name_of_the_artist") : "Anonymous",
-                                (jsonStreetArt.has("photo")) ? jsonStreetArt.getJSONObject("photo").getString("id") : "No picture available",
+                                (jsonStreetArt.has("photo")) ? jsonStreetArt.getJSONObject("photo").getString("id") : "No photo available",
                                 (jsonStreetArt.has("name_of_the_work")) ? jsonStreetArt.getString("name_of_the_work") : "Untitled",
                                 (jsonStreetArt.has("annee")) ? jsonStreetArt.getString("annee") : "year unknown",
                                 new LatLng(jsonStreetArt.getJSONArray("geocoordinates").getDouble(0),

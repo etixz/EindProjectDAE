@@ -19,9 +19,6 @@
         <action
             android:id="@+id/home_to_map"
             app:destination="@id/map_fragment" />
-        <action
-            android:id="@+id/home_to_routes"
-            app:destination="@id/route_fragment" />
     </fragment>
     <fragment
         android:id="@+id/about_fragment"
@@ -58,10 +55,6 @@
             android:id="@+id/detail_to_map"
             app:destination="@id/map_fragment" />
     </fragment>
-    <fragment
-        android:id="@+id/route_fragment"
-        android:name="dae.mob123.ui.fragments.RouteFragment"
-        tools:layout="@layout/fragment_route" />
     <fragment
         android:id="@+id/settings_fragment"
         android:name="dae.mob123.ui.fragments.SettingsFragment"

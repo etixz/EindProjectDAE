@@ -44,7 +44,7 @@
             android:layout_marginTop="2dp"
             android:gravity="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="12sp"
             app:fontFamily="@font/cantarell_regular"
             app:layout_constraintEnd_toEndOf="parent"

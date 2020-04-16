@@ -6,7 +6,6 @@
     <string name="str_btn_home_about">درباره نقاشیهای دیواری کمیک</string>
     <string name="str_btn_home_list">لیست دیوارهای  کمیک</string>
     <string name="str_btn_home_map">نقشه دیوارهای  کمیک</string>
-    <string name="str_btn_home_routes">مسیرهای پیشنهادی</string>
     <string name="str_lp_pref_sort">گزینه های مرتب سازی</string>
     <string name="str_pref_sort_artist">مرتب سازی بر اساس نام هنرمند</string>
     <string name="str_settings">تنظیمات برگزیده</string>
@@ -22,9 +21,6 @@
     <string name="str_tv_request_mural_dialog_content">آیا شما یک ساختمان در شهر بروکسل دارید و آیا می خواهید نقاشی روی دیوار ساختمان خود بکشید؟ با ما تماس بگیرید تا ببینید نقاشی دیواری برای شما امکان پذیر است ، از طریق:</string>
     <string name="str_request_mural_dialog_posbtn">ارسال ایمیل</string>
     <string name="str_request_mural_dialog_negbtn">لغو</string>
-    <string name="str_request_mural_dialog_email_client">برنامه ایمیل خود را انتخاب کنید</string>
-    <string name="str_show_on_map">نمایش روی نقشه</string>
     <string name="str_request_mural_email_client">مشتری ایمیل خود را انتخاب کنید</string>
     <string name="str_request_mural_email_subject">" درخواست جدید یک کمیک استریپ"</string>
-
 </resources>

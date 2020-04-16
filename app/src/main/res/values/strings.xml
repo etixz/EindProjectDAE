@@ -5,14 +5,11 @@
     <string name="str_btn_home_about">Over het stripparcours</string>
     <string name="str_btn_home_list">Lijst van stripmuren</string>
     <string name="str_btn_home_map">Kaart met stripmuren</string>
-    <string name="str_btn_home_routes">Voorgestelde routes</string>
     <string name="str_lp_pref_sort">Sorteeropties</string>
     <string name="str_pref_sort_artist">Sorteer op artiestennaam</string>
     <string name="str_pref_sort_name">Sorteer op personagenaam/titel</string>
-<!--    <string name="str_pref_sort_street">Sorteer op straatnaam</string>-->
     <string name="str_settings">Voorkeuren</string>
     <string name="str_app_bar_search">Zoeken</string>
-
     <string name="str_btn_show_on_map">Toon op kaart</string>
     <string name="str_no_year">jaar onbekend</string>
     <string name="str_no_artist">Anoniem</string>
@@ -24,6 +21,5 @@
     <string name="str_tv_request_mural_dialog_content">Bent u eigenaar van een pand op het grondgebied van Stad Brussel en wilt u graag een stripmuur op een muur van uw gebouw? Neem contact op om te zien of een stripmuur bij u mogelijk is.</string>
     <string name="str_request_mural_dialog_posbtn">Stuur e-mail</string>
     <string name="str_request_mural_dialog_negbtn">Annuleer</string>
-    <string name="str_request_mural_email_client">Kies uw e-mail cliënt</string>
     <string name="str_request_mural_email_client">Kies uw e-mail cliënt</string>
 </resources>

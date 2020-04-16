@@ -18,7 +18,6 @@ import dae.mob123.R;
 public class RequestMuralDialog extends AppCompatDialogFragment {
 
     private final String[] REQUEST_MURAL_EMAIL = {"stripparcours@brucity.be"};
-    private final String OPEN_EMAIL_CLIENTS = "message/rfc822";
 
     @NonNull
     @Override
@@ -40,6 +39,7 @@ public class RequestMuralDialog extends AppCompatDialogFragment {
                     public void onClick(DialogInterface dialog, int which) {
                     }
                 });
+
         return dialogBuilder.create();
 
     }

@@ -31,6 +31,7 @@ public class DetailFragment extends Fragment {
     private ImageView imageIV;
     private AppCompatActivity appCompatActivity;
     private MaterialButton showOnMap;
+    private MaterialButton showRoute;
 
     public DetailFragment() {
     }
@@ -45,6 +46,7 @@ public class DetailFragment extends Fragment {
         streetAddressTV = rootView.findViewById(R.id.tv_detail_street);
         imageIV = rootView.findViewById(R.id.iv_detail_img);
         showOnMap = rootView.findViewById(R.id.btn_show_place_on_map);
+        showRoute = rootView.findViewById(R.id.btn_show_route);
         if (dataPassed()) {
             muralFromList = (Mural) dataFromList.getSerializable("mural_to_detail");
             characterTV.setText(muralFromList.getCharacterTitle());
@@ -64,6 +66,14 @@ public class DetailFragment extends Fragment {
         }
 
         showOnMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle data = new Bundle();
+                data.putSerializable("mural_to_map", muralFromList);
+                Navigation.findNavController(view).navigate(R.id.detail_to_map, data);
+            }
+        });
+        showRoute.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Bundle data = new Bundle();

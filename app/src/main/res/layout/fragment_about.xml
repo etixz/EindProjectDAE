@@ -5,7 +5,7 @@
     android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorAccent"
+    android:background="@color/colorSecondaryDark"
     android:orientation="vertical"
     tools:context=".ui.fragments.AboutFragment">
 
@@ -16,7 +16,6 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginRight="16dp"
-        android:layout_marginBottom="4dp"
         android:background="@color/colorPrimaryDark"
         android:clickable="true"
         android:focusable="true"
@@ -38,7 +37,7 @@
         android:fillViewport="true"
         android:paddingLeft="12dp"
         android:paddingRight="12dp"
-        android:paddingBottom="20dp"
+        android:paddingBottom="8dp"
         android:scrollbars="vertical">
 
         <TextView
@@ -46,8 +45,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:lineSpacingExtra="8sp"
-            android:paddingLeft="4dp"
-            android:paddingRight="4dp"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:paddingBottom="8dp"
             android:text="@string/str_tv_about_content_comicbook"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@color/colorPrimary"
@@ -62,7 +62,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="4dp"
         android:background="@color/colorPrimaryDark"
@@ -78,6 +77,7 @@
         android:textColor="@color/colorPrimary"
         android:textSize="26sp"
         app:fontFamily="@font/cantarell_bold" />
+
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -85,7 +85,7 @@
         android:fillViewport="true"
         android:paddingLeft="12dp"
         android:paddingRight="12dp"
-        android:paddingBottom="20dp"
+        android:paddingBottom="8dp"
         android:scrollbars="vertical">
 
         <TextView
@@ -93,8 +93,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:lineSpacingExtra="8sp"
-            android:paddingLeft="4dp"
-            android:paddingRight="4dp"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:paddingBottom="8dp"
             android:text="@string/str_tv_about_content_streetart"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@color/colorPrimary"

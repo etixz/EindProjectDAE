@@ -29,6 +29,9 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolygonOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
@@ -64,6 +67,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             }
         }
     };
+
 
     public MapFragment() {
     }
@@ -129,6 +133,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             }
         });
     }
+
 
     private void drawMuralMarkers() {
         MuralViewModel muralViewModel = new ViewModelProvider(myContext).get(MuralViewModel.class);

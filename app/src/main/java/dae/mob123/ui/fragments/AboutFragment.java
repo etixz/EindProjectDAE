@@ -1,4 +1,4 @@
-package dae.mob123.fragments;
+package dae.mob123.ui.fragments;
 
 import android.os.Bundle;
 

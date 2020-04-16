@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="36dp"
+    android:paddingTop="16dp"
+    android:paddingRight="36dp"
+    android:paddingBottom="16dp">
+
+<!--    <TextView-->
+<!--        android:id="@+id/tv_request_mural_dialog_title"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginBottom="16dp"-->
+<!--        android:gravity="center"-->
+<!--        android:text="@string/str_tv_request_mural_dialog_title"-->
+<!--        android:textAppearance="@style/TextAppearance.AppCompat.Medium"-->
+<!--        android:textSize="20sp"-->
+<!--        android:textStyle="bold"-->
+<!--        app:fontFamily="@font/cantarell_bold" />-->
+
+    <TextView
+        android:id="@+id/tv_request_mural_dialog_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_request_mural_dialog_title"
+        android:layout_marginTop="2dp"
+        android:text="@string/str_tv_request_mural_dialog_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textSize="18dp"
+        app:fontFamily="@font/cantarell_regular" />
+</RelativeLayout>

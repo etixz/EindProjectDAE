@@ -53,8 +53,12 @@ public class MuralViewModel extends AndroidViewModel {
             fetchAllMurals();
         }
         LiveData<List<Mural>> murals = database.getRepoDao().getAllMurals();
-//        TODO: Fix preference selection for all languages
-        //switch int sortBy returns a class cast exception
+
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mApplication);
+        String sortBy = settings.getString("lp_pref_sort", String.valueOf(R.string.str_pref_sort_name));
+//        String[] sortOptions = getApplication().getResources().getStringArray(R.array.str_arr_pref_sort);
+
+//        //switch int sortBy returns a class cast exception
 //        int sortBy = settings.getInt("lp_pref_sort", R.string.str_pref_sort_name);
 //        switch (sortBy){
 //        case R.string.str_pref_sort_name : murals = database.getRepoDao().getAllMurals();
@@ -63,14 +67,8 @@ public class MuralViewModel extends AndroidViewModel {
 //            break;
 //        }
 
-        //switch String sortBy only accepts constant string values
-        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mApplication);
-        String sortBy = settings.getString("lp_pref_sort", String.valueOf(R.string.str_lp_pref_sort)) ;
-        switch (sortBy) {
-            case "Sorteer op personagenaam/titel" : murals = database.getRepoDao().getAllMurals();
-            break;
-            case "Sorteer op artiestennaam" : murals = database.getRepoDao().getAllMuralsOrderByArtist();
-            break;
+//        //switch String sortBy only accepts constant string values, not reference to resource
+        switch (sortBy){
             case "Sort by character name/title": murals = database.getRepoDao().getAllMurals();
             break;
             case "Sort by artist": murals = database.getRepoDao().getAllMuralsOrderByArtist();

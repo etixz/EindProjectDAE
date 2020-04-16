@@ -3,6 +3,11 @@
 
     <item
         android:id="@+id/settings_fragment"
+        android:icon="@android:drawable/ic_menu_manage"
         android:title="@string/str_settings"
         android:visible="true" />
+    <item
+        android:id="@+id/request_mural_dialog"
+        android:icon="@android:drawable/ic_menu_add"
+        android:title="@string/str_request_mural_dialog_title" />
 </menu>

@@ -1,4 +1,4 @@
-package dae.mob123.fragments.util;
+package dae.mob123.ui.util;
 
 import android.content.Context;
 import android.location.Address;

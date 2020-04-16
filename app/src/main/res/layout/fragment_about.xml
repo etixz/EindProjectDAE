@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorAccent"
     android:orientation="vertical"
-    tools:context=".fragments.AboutFragment">
+    tools:context=".ui.fragments.AboutFragment">
 
     <TextView
         android:id="@+id/tv_about_title_comicbook"

@@ -1,4 +1,4 @@
-package dae.mob123.fragments;
+package dae.mob123.ui.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -21,7 +21,7 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import dae.mob123.R;
-import dae.mob123.fragments.util.MuralAdapter;
+import dae.mob123.ui.util.MuralAdapter;
 import dae.mob123.model.Mural;
 import dae.mob123.model.MuralViewModel;
 

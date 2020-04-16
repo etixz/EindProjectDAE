@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/home_fragment"
-        android:name="dae.mob123.fragments.HomeFragment"
+        android:name="dae.mob123.ui.fragments.HomeFragment"
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/home_to_about"
@@ -25,11 +25,11 @@
     </fragment>
     <fragment
         android:id="@+id/about_fragment"
-        android:name="dae.mob123.fragments.AboutFragment"
+        android:name="dae.mob123.ui.fragments.AboutFragment"
         tools:layout="@layout/fragment_about" />
     <fragment
         android:id="@+id/list_fragment"
-        android:name="dae.mob123.fragments.ListFragment"
+        android:name="dae.mob123.ui.fragments.ListFragment"
         tools:layout="@layout/fragment_list" >
         <action
             android:id="@+id/list_to_detail"
@@ -39,7 +39,7 @@
     </fragment>
     <fragment
         android:id="@+id/map_fragment"
-        android:name="dae.mob123.fragments.MapFragment">
+        android:name="dae.mob123.ui.fragments.MapFragment">
         <action
             android:id="@+id/map_to_detail"
             app:destination="@id/detail_fragment" />
@@ -49,7 +49,7 @@
     </fragment>
     <fragment
         android:id="@+id/detail_fragment"
-        android:name="dae.mob123.fragments.DetailFragment"
+        android:name="dae.mob123.ui.fragments.DetailFragment"
         tools:layout="@layout/fragment_detail" >
         <argument
             android:name="mural_to_detail"
@@ -60,10 +60,13 @@
     </fragment>
     <fragment
         android:id="@+id/route_fragment"
-        android:name="dae.mob123.fragments.RouteFragment"
+        android:name="dae.mob123.ui.fragments.RouteFragment"
         tools:layout="@layout/fragment_route" />
     <fragment
         android:id="@+id/settings_fragment"
-        android:name="dae.mob123.fragments.SettingsFragment"
+        android:name="dae.mob123.ui.fragments.SettingsFragment"
         tools:layout="@layout/fragment_settings" />
+    <dialog
+        android:id="@+id/request_mural_dialog"
+        android:name="dae.mob123.ui.dialogs.RequestMuralDialog" />
 </navigation>

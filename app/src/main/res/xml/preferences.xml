@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/colorPrimary"
+    android:orientation="horizontal">
     <ListPreference
         android:entries="@array/str_arr_pref_sort"
         android:entryValues="@array/str_arr_pref_sort"

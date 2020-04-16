@@ -56,7 +56,9 @@ public class MainActivity extends AppCompatActivity {
             //navigatie starten door menu-item in de nav controller aan te spreken
             //ID van fragment in main_nav moet overeenkomen met ID van component in main_menu
             case R.id.settings_fragment: NavigationUI.onNavDestinationSelected(item, navController);
+            case R.id.request_mural_dialog : NavigationUI.onNavDestinationSelected(item, navController);
         }
         return super.onOptionsItemSelected(item);
     }
+
 }

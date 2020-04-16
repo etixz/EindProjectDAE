@@ -1,4 +1,4 @@
-package dae.mob123.fragments;
+package dae.mob123.ui.fragments;
 
 import android.Manifest;
 import android.content.Context;
@@ -35,7 +35,7 @@ import com.google.android.gms.tasks.Task;
 import java.util.List;
 
 import dae.mob123.R;
-import dae.mob123.fragments.util.LocationConverter;
+import dae.mob123.ui.util.LocationConverter;
 import dae.mob123.model.Mural;
 import dae.mob123.model.MuralViewModel;
 import dae.mob123.model.util.MuralType;

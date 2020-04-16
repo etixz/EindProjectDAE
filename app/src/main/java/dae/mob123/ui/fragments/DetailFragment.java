@@ -1,4 +1,4 @@
-package dae.mob123.fragments;
+package dae.mob123.ui.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -17,7 +17,7 @@ import com.google.android.material.button.MaterialButton;
 import com.squareup.picasso.Picasso;
 
 import dae.mob123.R;
-import dae.mob123.fragments.util.LocationConverter;
+import dae.mob123.ui.util.LocationConverter;
 import dae.mob123.model.Mural;
 
 import static dae.mob123.model.util.MuralType.COMIC_BOOK;

@@ -6,7 +6,7 @@
     <string name="str_app_bar_search">Cherchez</string>
     <string name="str_settings">Préférences</string>
     <string name="str_lp_pref_sort">Options de tri</string>
-    <string name="str_btn_home_routes">Trajets proposés</string>
+<!--    <string name="str_btn_home_routes">Trajets proposés</string>-->
     <string name="str_btn_home_list">Liste des freques</string>
     <string name="str_btn_home_map">Carte des freques</string>
     <string name="str_pref_sort_name">Trier par charactère/titre</string>

@@ -23,4 +23,5 @@
     <string name="str_request_mural_dialog_negbtn">لغو</string>
     <string name="str_request_mural_email_client">مشتری ایمیل خود را انتخاب کنید</string>
     <string name="str_request_mural_email_subject">" درخواست جدید یک کمیک استریپ"</string>
+    <string name="str_btn_home_gallery">گالری عکس</string>
 </resources>

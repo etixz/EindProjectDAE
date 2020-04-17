@@ -22,4 +22,5 @@
     <string name="str_request_mural_dialog_posbtn">Stuur e-mail</string>
     <string name="str_request_mural_dialog_negbtn">Annuleer</string>
     <string name="str_request_mural_email_client">Kies uw e-mail cliënt</string>
+    <string name="str_btn_show_on_map_route">Bereken route</string>
 </resources>

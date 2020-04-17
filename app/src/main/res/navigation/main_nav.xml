@@ -41,7 +41,10 @@
             android:id="@+id/map_to_detail"
             app:destination="@id/detail_fragment" />
         <argument
-            android:name="mural_to_map"
+            android:name="mural_to_map_zoom"
+            app:argType="dae.mob123.model.Mural" />
+        <argument
+            android:name="mural_to_map_route"
             app:argType="dae.mob123.model.Mural" />
     </fragment>
     <fragment

@@ -2,7 +2,6 @@ package dae.mob123.model;
 
 import android.app.Application;
 import android.content.SharedPreferences;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -18,6 +17,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -36,53 +36,15 @@ public class MuralViewModel extends AndroidViewModel {
 
     private MuralDatabase database;
     private final Application mApplication;
+    private ArrayList<String> imageURlList = new ArrayList<>();
     public ExecutorService threadExecutor = Executors.newFixedThreadPool(4);
+
 
     /*Constructor must include the context*/
     public MuralViewModel(@NonNull Application application) {
         super(application);
         mApplication = application;
         database = MuralDatabase.getInstance(application);
-
-        //murals = (MutableLiveData<List<Mural>>) database.getRepoDao().getAllMurals();
-    }
-
-    /*Method to get a list with all the Murals as Live Data*/
-    public LiveData<List<Mural>> getMurals(){
-        if(database.getRepoDao().getAllMurals().getValue() == null) {
-            fetchAllMurals();
-        }
-        LiveData<List<Mural>> murals = database.getRepoDao().getAllMurals();
-
-        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mApplication);
-        String sortBy = settings.getString("lp_pref_sort", String.valueOf(R.string.str_pref_sort_name));
-//        String[] sortOptions = getApplication().getResources().getStringArray(R.array.str_arr_pref_sort);
-
-//        //switch int sortBy returns a class cast exception
-//        int sortBy = settings.getInt("lp_pref_sort", R.string.str_pref_sort_name);
-//        switch (sortBy){
-//        case R.string.str_pref_sort_name : murals = database.getRepoDao().getAllMurals();
-//            break;
-//            case R.string.str_pref_sort_artist : murals = database.getRepoDao().getAllMuralsOrderByArtist();
-//            break;
-//        }
-
-//        //switch String sortBy only accepts constant string values, not reference to resource
-        switch (sortBy){
-            case "Sort by character name/title": murals = database.getRepoDao().getAllMurals();
-            break;
-            case "Sort by artist": murals = database.getRepoDao().getAllMuralsOrderByArtist();
-            break;
-            case "Trier par charactère/titre": murals = database.getRepoDao().getAllMurals();
-            break;
-            case "Trier par artiste": murals = database.getRepoDao().getAllMuralsOrderByArtist();
-            break;
-            case "مرتب سازی بر اساس نام شخصیت / عنوان": murals = database.getRepoDao().getAllMurals();
-            break;
-            case "مرتب سازی بر اساس نام هنرمند": murals = database.getRepoDao().getAllMuralsOrderByArtist();
-            break;
-        }
-        return murals;
     }
 
     /*Consume the restAPI and deserialise data from JSON objects to Java objects by running in a thread in the background*/
@@ -115,14 +77,13 @@ public class MuralViewModel extends AndroidViewModel {
                                 MuralType.COMIC_BOOK,
                                 jsonComicBookMuralID,
                                 (jsonComicBookMural.has("auteur_s")) ? jsonComicBookMural.getString("auteur_s") : "Unknown author",
-                                (jsonComicBookMural.has("photo")) ? jsonComicBookMural.getJSONObject("photo").getString("id") : "No photo available",
+                                (jsonComicBookMural.has("photo")) ? jsonComicBookMural.getJSONObject("photo").getString("id") : "",
                                 (jsonComicBookMural.has("personnage_s")) ? jsonComicBookMural.getString("personnage_s") : "Unknown character",
                                 (jsonComicBookMural.has("annee")) ? jsonComicBookMural.getString("annee") : "year unknown",
                                 new LatLng(jsonComicBookMural.getJSONArray("coordonnees_geographiques").getDouble(0),
                                            jsonComicBookMural.getJSONArray("coordonnees_geographiques").getDouble(1))
                         );
 
-                        Log.d("ImageURL Comic book", currentComicBookMural.getImageURL());
                         /*If the Mural object does not exist in the database, store it in database*/
                         MuralDatabase.databaseWriteExecutor.execute(new Runnable() {
                             @Override
@@ -132,6 +93,9 @@ public class MuralViewModel extends AndroidViewModel {
                                 }
                             }
                         });
+                        if (currentComicBookMural.getImageURL() != "") {
+                            imageURlList.add("https://opendata.bruxelles.be/api/v2/catalog/datasets/comic-book-route/files/" + currentComicBookMural.getImageURL());
+                        }
                     }
 
                 } catch (IOException e){
@@ -159,13 +123,13 @@ public class MuralViewModel extends AndroidViewModel {
                                 MuralType.STREET_ART,
                                 jsonStreetArtID,
                                 (jsonStreetArt.has("name_of_the_artist")) ? jsonStreetArt.getString("name_of_the_artist") : "Anonymous",
-                                (jsonStreetArt.has("photo")) ? jsonStreetArt.getJSONObject("photo").getString("id") : "No photo available",
+                                (jsonStreetArt.has("photo")) ? jsonStreetArt.getJSONObject("photo").getString("id") : "",
                                 (jsonStreetArt.has("name_of_the_work")) ? jsonStreetArt.getString("name_of_the_work") : "Untitled",
                                 (jsonStreetArt.has("annee")) ? jsonStreetArt.getString("annee") : "year unknown",
                                 new LatLng(jsonStreetArt.getJSONArray("geocoordinates").getDouble(0),
                                            jsonStreetArt.getJSONArray("geocoordinates").getDouble(1))
                         );
-                        Log.d("ImageURL StreetArt", currentStreetArt.getImageURL());
+
                         MuralDatabase.databaseWriteExecutor.execute(new Runnable() {
                             @Override
                             public void run() {
@@ -174,6 +138,9 @@ public class MuralViewModel extends AndroidViewModel {
                                 }
                             }
                         });
+                        if (currentStreetArt.getImageURL() != "") {
+                            imageURlList.add("https://opendata.bruxelles.be/api/v2/catalog/datasets/comic-book-route/files/" + currentStreetArt.getImageURL());
+                        }
                     }
                 }
 
@@ -184,6 +151,41 @@ public class MuralViewModel extends AndroidViewModel {
                 }
             }
         });
+    }
+
+    /*Method to get a list with all the Murals as Live Data*/
+    public LiveData<List<Mural>> getMurals(){
+        if(database.getRepoDao().getAllMurals().getValue() == null) {
+            fetchAllMurals();
+        }
+        LiveData<List<Mural>> murals = database.getRepoDao().getAllMurals();
+
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mApplication);
+        String sortBy = settings.getString("lp_pref_sort", String.valueOf(R.string.str_pref_sort_name));
+
+//        //switch only accepts constant string values, not reference to resource (why?)
+        switch (sortBy){
+            case "Sort by character name/title": murals = database.getRepoDao().getAllMurals();
+                break;
+            case "Sort by artist": murals = database.getRepoDao().getAllMuralsOrderByArtist();
+                break;
+            case "Trier par charactère/titre": murals = database.getRepoDao().getAllMurals();
+                break;
+            case "Trier par artiste": murals = database.getRepoDao().getAllMuralsOrderByArtist();
+                break;
+            case "مرتب سازی بر اساس نام شخصیت / عنوان": murals = database.getRepoDao().getAllMurals();
+                break;
+            case "مرتب سازی بر اساس نام هنرمند": murals = database.getRepoDao().getAllMuralsOrderByArtist();
+                break;
+        }
+        return murals;
+    }
+
+    public ArrayList<String> getMuralPhotos(){
+        if(database.getRepoDao().getAllMurals().getValue() == null) {
+            fetchAllMurals();
+        }
+        return imageURlList;
     }
 
     public Mural findMuralByID(String id){

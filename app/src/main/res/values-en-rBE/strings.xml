@@ -23,4 +23,5 @@
     <string name="str_request_mural_dialog_title">Request mural</string>
     <string name="str_request_mural_email_subject">New request for comic book mural</string>
     <string name="str_tv_request_mural_dialog_content">Do you own real estate within the City of Brussels and would you like a comic book mural on a wall of your building? Send us an email to find out whether this is possible for you.</string>
+    <string name="str_btn_home_gallery">Photo gallery</string>
 </resources>

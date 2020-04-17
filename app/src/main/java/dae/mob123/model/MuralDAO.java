@@ -26,12 +26,4 @@ public interface MuralDAO {
 
     @Insert
     void insertMural(Mural m);
-
-// is het wel nodig om Stripuur te verwijderen of updaten?
-//    @Update
-//    void updateMural(Mural m);
-
-//    @Delete
-//    void deleteMural(Mural m);
-//
 }

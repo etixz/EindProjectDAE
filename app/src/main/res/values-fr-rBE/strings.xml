@@ -24,4 +24,5 @@
     <string name="str_request_mural_email_client">" Choisissez votre client de messagerie"</string>
     <string name="str_request_mural_email_subject">Nouvelle demande pur une fresque BD</string>
     <string name="str_request_mural_dialog_title">Demander un fresque</string>
+    <string name="str_btn_home_gallery">Galerie de photos</string>
 </resources>

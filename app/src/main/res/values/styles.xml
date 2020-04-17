@@ -23,6 +23,7 @@
         <item name="android:textColor">@color/colorAccent</item>
     </style>
 
+
     <style name="PositiveButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
         <item name="android:textColor">#BFBFBF</item>
     </style>

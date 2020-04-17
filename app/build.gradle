@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     signingConfigs {
         alpha_build {
-            storeFile file('..\\..\\..\\Eindproject_Android\\dae_key_store.jks')
+            storeFile file('..\\..\\Eindproject_Android\\dae_key_store.jks')
             storePassword 'Mobapp123'
             keyAlias = 'dae_key'
             keyPassword 'MobappDAE'

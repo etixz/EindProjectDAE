@@ -10,6 +10,8 @@ import androidx.viewpager.widget.PagerAdapter;
 
 import com.squareup.picasso.Picasso;
 
+import dae.mob123.R;
+
 public class ViewPagerAdapter extends PagerAdapter {
 
     private Context context;
@@ -37,8 +39,7 @@ public class ViewPagerAdapter extends PagerAdapter {
         ImageView imageView = new ImageView(context);
         Picasso.get()
                 .load(imgURLs[position])
-                .fit()
-                .centerCrop()
+                .placeholder(R.drawable.ic_image_placeholder)
                 .into(imageView);
         container.addView(imageView);
         return imageView;

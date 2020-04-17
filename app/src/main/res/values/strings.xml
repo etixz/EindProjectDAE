@@ -24,5 +24,6 @@
     <string name="str_request_mural_email_client">Kies uw e-mail cliënt</string>
 <!--    <string name="str_btn_show_on_map_route">Bereken route</string>-->
     <string name="str_btn_home_gallery">Fotogalerij</string>
+    <string name="str_tv_gallery">Fotogallerij</string>
 
 </resources>
